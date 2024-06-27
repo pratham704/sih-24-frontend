@@ -1,0 +1,135 @@
+.header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    padding: 0 0 0 0;
+    min-height: 100vh;
+    /* background: url('../../../../assets/svg/bgheader.svg'); */
+    background: url('../../../../assets/svg/bgheader.svg');
+    background-size: cover;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.col {
+    flex-basis: 50%;
+}
+
+.text-content {
+    padding-left: 75px;
+}
+
+.text-content h1 {
+    font-size: 3.5rem;
+    line-height: 4rem;
+    text-transform: capitalize;
+}
+
+.text-content p {
+    font-size: 1.2rem;
+    margin: 1.5rem 0;
+}
+
+.text-content button {
+    border: none;
+    outline: none;
+    padding: 8px 16px;
+    color: #fff;
+    background-color: #4f4592;
+}
+
+.col img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 3rem;
+}
+
+@media (max-width:900px) {
+    .sm-hidden {
+        display: none;
+    }
+    .lg-hidden {
+        display: block;
+    }
+    .navbar {
+        padding: 10px 25px;
+    }
+    .menu-li {
+        position: fixed;
+        top: -550px;
+        left: 0px;
+        color: inherit;
+        background-color: #fff;
+        padding: 10px 25px;
+        width: 100%;
+        opacity: 0;
+        z-index: -1;
+        visibility: hidden;
+        transition: all 1s ease;
+        transform-origin: bottom;
+    }
+    .navbar.active {
+        background-color: #fff;
+    }
+    .menu-li.active {
+        left: 0;
+        top: 60px;
+        opacity: 1;
+        visibility: visible;
+    }
+    .menu-li .menu {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+}
+
+@media (max-width:1200px) {
+    .text-content h1 {
+        font-size: 3rem;
+        line-height: 3rem;
+    }
+    .text-content p {
+        font-size: 1rem;
+        margin: 8px 0;
+    }
+}
+
+@media (max-width:900px) {
+    .row {
+        flex-direction: column;
+    }
+    .col {
+        flex-basis: 100%;
+    }
+    .col img {
+        padding: 0;
+    }
+    .text-content {
+        order: 2;
+        padding: 40px 40px;
+    }
+    .text-content h1 {
+        font-size: 2.5rem;
+    }
+    .text-content p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width:500px) {
+    .text-content {
+        padding: 20px 15px;
+    }
+    .text-content h1 {
+        font-size: 2rem;
+    }
+}
