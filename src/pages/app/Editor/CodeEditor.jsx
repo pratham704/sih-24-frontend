@@ -107,9 +107,7 @@ function CodeEditor() {
 
   return (
     <div className="dark:bg-gray-900 min-h-screen text-gray-200 p-4">
-      <div
-        className="flex flex-col lg:flex-row justify-evenly mb-8 space-y-4 lg:space-y-0"
-      >
+      <div className="flex flex-col lg:flex-row justify-evenly mb-8 space-y-4 lg:space-y-0">
         <div className="flex justify-center">
           <div className="relative w-full lg:w-64">
             <select
@@ -149,17 +147,28 @@ function CodeEditor() {
 
       <div className="flex flex-col lg:flex-row flex-wrap">
         <div className="w-full lg:w-1/2 p-2">
+          <div className="editor-container">
           <Editor
-            options={{
-              minimap: { enabled: false },
-            }}
-            height="75vh"
-            theme="vs-dark"
-            language={language}
-            defaultValue={snippit}
-            value={snippit}
-            onChange={(newValue) => setPythonCode(newValue)}
-          />
+      options={{
+        minimap: { enabled: false },
+        scrollbar: {
+          verticalScrollbarSize: 2,
+          horizontalScrollbarSize: 2,
+          verticalSliderSize: 1,
+          horizontalSliderSize: 2,
+          alwaysConsumeMouseWheel: false,
+        },
+        lineNumbers: 'off', // Disable line numbers
+      }}
+      height="75vh"
+      theme="vs-dark"
+      language={language}
+      defaultValue={snippit}
+      value={pythonCode}
+      onChange={setPythonCode}
+      style={{ borderRadius: "1rem" }}
+    />
+          </div>
           <div className="flex justify-center mt-4">
             {isLoading ? (
               <button
