@@ -45,4 +45,4 @@ Icon
 
 # Custom ignore
 /src/env
-/env
+/.env
