@@ -106,7 +106,7 @@ export default function LandingPage() {
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 transition: "transform 0.3s, box-shadow 0.3s",
               }}
-              onClick={() => navigate("/student/account/login")}
+              onClick={() => navigate("/instructor/account/login")}
               onMouseEnter={(e) =>
                 (e.target.style.transform = "translateY(-3px)")
               }

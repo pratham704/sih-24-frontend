@@ -32,7 +32,7 @@ const CourseDetails = () => {
 
   const getSessionId = async () => {
     try {
-      let res = await axios.get("http://localhost:8000/payment");
+      let res = await axios.get("https://cashify-node-server.vercel.app/payment");
 
       if (res.data && res.data.payment_session_id) {
         console.log(res.data);
@@ -46,12 +46,15 @@ const CourseDetails = () => {
 
   const verifyPayment = async () => {
     try {
-      let res = await axios.post("http://localhost:8000/verify", {
+      let res = await axios.post("https://cashify-node-server.vercel.app/verify", {
         orderId: orderId,
       });
 
       if (res && res.data) {
+        console.log(res.data)
         alert("payment verified");
+
+
 
         nav('/student/dashboard')
 

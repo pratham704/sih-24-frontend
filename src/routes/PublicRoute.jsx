@@ -10,10 +10,11 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "primeicons/primeicons.css";
 
 //pages import
-import Login from "../pages/app/(auth)/Login";
-import Register from "../pages/app/(auth)/Register";
-import Sidebar from "../components/Sidebar";
+
+import Sidebar from "../components/Student/Sidebar";
+import SidebarInstructor from "../components/Instructor/SidebarInstructor";
 import Dashboard from "../pages/app/dashboard/Dashboard";
+import DashboardInstructor from "../pages/app/dashboard/DashboardInstructor";
 import CodeEditor from "../pages/app/Editor/CodeEditor";
 import Certificate from "../pages/app/certifications/Certificate";
 import LandingPage from "../pages/app/starter/LandingPage";
@@ -21,6 +22,10 @@ import ExploreCourses from "../pages/app/Learner/courses/ExploreCourses";
 import CourseDetails from "../pages/app/Learner/courses/CourseDetails";
 import MyCourses from "../pages/app/Learner/courses/MyCourses";
 import SingleCourse from "../pages/app/Learner/courses/SingleCourse";
+import Register from "../pages/app/(auth)/Learner/Register";
+import Login from "../pages/app/(auth)/Learner/Login";
+import LoginInstructor from "../pages/app/(auth)/Instructor/LoginInstructor";
+import RegisterInstructor from "../pages/app/(auth)/Instructor/RegisterInstructor";
 const PublicRoute = () => {
   return (
     <PrimeReactProvider>
@@ -104,6 +109,42 @@ const PublicRoute = () => {
               <>
                 <Sidebar />
                 <SingleCourse />
+              </>
+            }
+          />
+
+          {/* for the instructors  */}
+
+          <Route
+            exact
+            path="/instructor/account/login"
+            element={
+              <>
+                {/* <SingleCourse /> */}
+                <LoginInstructor/>
+              </>
+            }
+          />
+
+          <Route
+            exact
+            path="/instructor/account/register"
+            element={
+              <>
+                {/* <SingleCourse /> */}
+
+                <RegisterInstructor/>
+              </>
+            }
+          />
+
+          <Route
+            exact
+            path="/instructor/dashboard"
+            element={
+              <>
+                <SidebarInstructor />
+                <DashboardInstructor />
               </>
             }
           />

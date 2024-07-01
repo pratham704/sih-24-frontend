@@ -5,12 +5,9 @@ import { faGoogle, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 
-import "./module/login.css";
+import "../module/login.css";
 
-function Login() {
-  
-
-  
+function LoginInstructor() {
   const nav = useNavigate();
   const [isSignUpMode, setIsSignUpMode] = useState(false);
 
@@ -26,13 +23,12 @@ function Login() {
     console.log("Captcha value:", value);
   };
 
-
   return (
     <div className={`loginContainer ${isSignUpMode ? "sign-up-mode" : ""}`}>
       <div className="forms-container">
         <div className="signin-signup">
           <div className="sign-in-form loginForm">
-            <h2 className="title">Sign in</h2>
+            <h2 className="title">Instructor Sign in</h2>
             <div className="input-field">
               <FontAwesomeIcon icon={faEnvelope} className="my-auto mx-auto" />
               <input
@@ -55,10 +51,9 @@ function Login() {
               sitekey={process.env.REACT_APP_CAPTCHA_SITE_KEY}
               onChange={onCaptchaChange}
             />
-            <button className="btns"
-            onClick={()=>nav('/student/dashboard')}
-            
-            >Sign In</button>
+            <button className="btns" onClick={() => nav("/instructor/dashboard")}>
+              Sign In
+            </button>
             <p className="social-text loginp">Sign in with social platforms</p>
             <div className="social-media">
               <a className="social-icon">
@@ -83,7 +78,10 @@ function Login() {
               dignissimos! Blanditiis atque reiciendis tempore! Voluptate
               tempore minus deleniti.
             </div>
-            <button className="btns" onClick={() => nav("/student/account/register")}>
+            <button
+              className="btns"
+              onClick={() => nav("/instructor/account/register")}
+            >
               Get started
             </button>
           </div>
@@ -101,7 +99,7 @@ function Login() {
               Sign up
             </button>
           </div>
-          <img src="/img/dogLogin1.svg" className="image" alt="" />
+          {/* <img src="/img/dogLogin1.svg" className="image" alt="" /> */}
         </div>
         <div className="panel right-panel">
           <div className="content">
@@ -125,4 +123,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginInstructor;

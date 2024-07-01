@@ -7,32 +7,23 @@ import Typography from "@mui/material/Typography";
 import { Link as ScrollLink } from "react-scroll";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import StyledButton from "./module/StyledButton";
-import Image from "../../../components/constants/Image";
-import HomeFeature from "./Layouts/HomeFeatures";
-import Mentor from "./Layouts/Mentor";
-import Courses from "./Layouts/Courses";
-import Sidebar from "../../../components/Student/Sidebar";
-import { useState , useEffect } from "react";
-const exps = [
+
+const stats = [
   {
-    label: "Students",
+    label: "Instructors With Us",
     value: "10+",
   },
   {
-    label: "Quality Course",
+    label: "Courses Created",
     value: "20+",
   },
   {
-    label: "Experience Mentors",
+    label: "Years of Experience ",
     value: "10+",
   },
 ];
 
-const ExpItem = ({ item }) => {
-
-
- 
-
+const StatItem = ({ item }) => {
   const { value, label } = item;
   return (
     <Box sx={{ textAlign: "center", mb: { xs: 1, md: 0 } }}>
@@ -53,8 +44,7 @@ const ExpItem = ({ item }) => {
   );
 };
 
-const HomeHero = () => {
-
+const DashboardInstructor = () => {
   return (
     <>
       <motion.div
@@ -65,8 +55,8 @@ const HomeHero = () => {
         <Box
           id="hero"
           sx={{
-            backgroundImage:
-              "linear-gradient(to left, #FFFFFF, #B4E1FF, #FFFFFF)",
+            backgroundImage: "linear-gradient(to left, #FFFFFF, #E6FFE6, #FFFFFF)", 
+
             position: "relative",
             pt: 4,
             pb: { xs: 8, md: 10 },
@@ -112,7 +102,7 @@ const HomeHero = () => {
                           backgroundColor: "unset",
                         }}
                       >
-                        Improve{" "}
+                        Elevate{" "}
                         <Box
                           sx={{
                             position: "absolute",
@@ -145,7 +135,7 @@ const HomeHero = () => {
                           },
                         }}
                       >
-                        Skill
+                        Teaching
                         <svg version="1.1" viewBox="0 0 3183 3072">
                           <g id="Layer_x0020_1">
                             <path
@@ -164,7 +154,7 @@ const HomeHero = () => {
                         </svg>
                       </Typography>{" "}
                       <br />
-                      with Different Way
+                      with Innovative Methods
                     </Typography>
                   </Box>
                   <Box sx={{ mb: 4, width: { xs: "100%", md: "70%" } }}>
@@ -172,13 +162,13 @@ const HomeHero = () => {
                       sx={{ color: "text.secondary", lineHeight: 1.6 }}
                     >
                       {
-                        "Let's take an online course to improve your skills in a different way, you can set your own study time according to your learning speed. So you san study comfortable and absorb tge material easily."
+                        "Engage your students and enhance their learning experience with interactive and dynamic teaching methods. Monitor their progress and adapt your courses to meet their needs."
                       }
                     </Typography>
                   </Box>
                   <Box sx={{ "& button": { mr: 2 } }}>
                     <ScrollLink
-                      to="popular-course"
+                      to="manage-courses"
                       spy={true}
                       smooth={true}
                       offset={0}
@@ -192,11 +182,11 @@ const HomeHero = () => {
                           marginBottom: "1rem",
                         }}
                       >
-                        Get Started
+                        Manage Courses
                       </StyledButton>
                     </ScrollLink>
                     <ScrollLink
-                      to="video-section"
+                      to="view-progress"
                       spy={true}
                       smooth={true}
                       offset={0}
@@ -211,7 +201,7 @@ const HomeHero = () => {
                           marginBottom: "1rem",
                         }}
                       >
-                        Watch Video
+                        View Progress
                       </StyledButton>
                     </ScrollLink>
                   </Box>
@@ -271,17 +261,26 @@ const HomeHero = () => {
                       variant="subtitle1"
                       sx={{ color: "text.secondary", lineHeight: 1.3 }}
                     >
-                      There are certificates for all courses.
+                      Issue certificates to your students upon course
+                      completion.
                     </Typography>
                   </Box>
                 </Box>
-                <Box sx={{ lineHeight: 0 }}>
+                <Box
+                  sx={{ lineHeight: 0 }}
+                  style={{
+                    width: "130%",
+                  }}
+                >
                   <motion.img
-                    src="https://i.ibb.co/VgwRHVR/file.png"
-                    width={775}
+                    src="https://i.ibb.co/g9jFmSf/how-to-be-an-effective-online-instructor-removebg-preview.png"
+                    width={1100}
                     height={787}
                     alt="Hero img"
-                    style={{ backgroundColor: "transparent" }}
+                    style={{
+                      backgroundColor: "transparent",
+                      height: "60vh",
+                    }}
                     initial={{ opacity: 0, x: 20 }} // Initial animation state (opacity 0 and starting position outside the viewport on the right)
                     animate={{ opacity: 1, x: 0 }} // Animation state when component mounts (opacity 1 and final position at x = 0)
                     transition={{ duration: 0.5 }} // Transition configuration (optional)
@@ -294,12 +293,11 @@ const HomeHero = () => {
             <br />
             <br />
 
-            {/* Experience */}
             <Box sx={{ boxShadow: 2, py: 4, px: 7, borderRadius: 4 }}>
               <Grid container spacing={2}>
-                {exps.map((item) => (
+                {stats.map((item) => (
                   <Grid key={item.value} item xs={12} md={4}>
-                    <ExpItem item={item} />
+                    <StatItem item={item} />
                   </Grid>
                 ))}
               </Grid>
@@ -307,27 +305,8 @@ const HomeHero = () => {
           </Container>
         </Box>
       </motion.div>
-
-      {/* HomeFeature Component */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
-      >
-        <HomeFeature />
-      </motion.div>
-
-      {/* Courses Component */}
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 1 }}
-      >
-        <Courses />
-      </motion.div>
     </>
   );
 };
 
-export default HomeHero;
+export default DashboardInstructor;
