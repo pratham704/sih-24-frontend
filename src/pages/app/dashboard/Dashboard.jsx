@@ -12,7 +12,7 @@ import HomeFeature from "./Layouts/HomeFeatures";
 import Mentor from "./Layouts/Mentor";
 import Courses from "./Layouts/Courses";
 import Sidebar from "../../../components/Sidebar";
-
+import { useState , useEffect } from "react";
 const exps = [
   {
     label: "Students",
@@ -29,6 +29,10 @@ const exps = [
 ];
 
 const ExpItem = ({ item }) => {
+
+
+ 
+
   const { value, label } = item;
   return (
     <Box sx={{ textAlign: "center", mb: { xs: 1, md: 0 } }}>
@@ -50,6 +54,7 @@ const ExpItem = ({ item }) => {
 };
 
 const HomeHero = () => {
+
   return (
     <>
       <motion.div

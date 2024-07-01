@@ -88,10 +88,35 @@ export default function Sidebar() {
             >
               <div
                 style={divStyles}
-                onClick={() => nav("/student/generic/dashboard")}
+                onClick={() => nav("/student/dashboard")}
               >
                 <h3 style={{ color: "#fff" }}>Home</h3>
               </div>
+              <br />
+              <div
+                style={divStyles}
+                onClick={() => nav("/student/code-editor")}
+              >
+                <h3 style={{ color: "#fff" }}>Practice mode</h3>
+              </div>
+
+
+              <br />
+              <div
+                style={divStyles}
+                onClick={() => nav("/student/my-courses")}
+              >
+                <h3 style={{ color: "#fff" }}>My courses</h3>
+              </div>
+           
+              <br />
+              <div
+                style={divStyles}
+                onClick={() => nav("/student/explore-courses")}
+              >
+                <h3 style={{ color: "#fff" }}>Explore courses</h3>
+              </div>
+
               <br />
 
               <div
@@ -100,8 +125,6 @@ export default function Sidebar() {
               >
                 <h3 style={{ color: "#fff" }}>Profile</h3>
               </div>
-              <br />
-
               <div
                 style={{
                   backgroundColor: "rgb(232 51 86 / 68%)",

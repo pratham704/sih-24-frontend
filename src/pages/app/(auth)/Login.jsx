@@ -39,7 +39,7 @@ function Login() {
                 className="LoginInput"
                 type="text"
                 name="faculty_uid"
-                placeholder="Faculty ID"
+                placeholder=" Email"
               />
             </div>
             <div className="input-field">
@@ -55,7 +55,10 @@ function Login() {
               sitekey={process.env.REACT_APP_CAPTCHA_SITE_KEY}
               onChange={onCaptchaChange}
             />
-            <button className="btns">Sign In</button>
+            <button className="btns"
+            onClick={()=>nav('/student/dashboard')}
+            
+            >Sign In</button>
             <p className="social-text loginp">Sign in with social platforms</p>
             <div className="social-media">
               <a className="social-icon">
@@ -80,7 +83,7 @@ function Login() {
               dignissimos! Blanditiis atque reiciendis tempore! Voluptate
               tempore minus deleniti.
             </div>
-            <button className="btns" onClick={() => nav("/account/register")}>
+            <button className="btns" onClick={() => nav("/student/account/register")}>
               Get started
             </button>
           </div>
