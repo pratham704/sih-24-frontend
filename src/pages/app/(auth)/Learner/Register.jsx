@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "primereact/toast";
+import { baseUrl } from "../../../../api/BaseUrl";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -20,14 +21,20 @@ export default function Register() {
     const { name, value } = e.target;
     setFacultyData({ ...facultyData, [name]: value });
   };
-
   const handleSubmit = async () => {
+    const { faculty_email, faculty_password } = facultyData;
+  
+    const data = {
+      email: faculty_email,
+      password: faculty_password,
+    };
+  
     try {
       const response = await axios.post(
-        "/faculty/account/register",
-        facultyData
+        `${baseUrl}/api/auth/register`,
+        data
       );
-
+  
       if (response.data.error) {
         toast.current.show({
           severity: "error",
@@ -35,7 +42,7 @@ export default function Register() {
           detail: "Failed to register faculty. Please try again later.",
         });
       }
-
+  
       if (response.status === 200) {
         toast.current.show({
           severity: "success",
@@ -53,6 +60,7 @@ export default function Register() {
       });
     }
   };
+  
 
   return (
     <Grid

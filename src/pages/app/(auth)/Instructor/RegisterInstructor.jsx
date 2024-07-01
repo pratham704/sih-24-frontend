@@ -5,6 +5,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "primereact/toast";
 
+import { baseUrl } from "../../../../api/BaseUrl";
+
 export default function RegisterInstructor() {
   const navigate = useNavigate();
   const toast = useRef(null);
