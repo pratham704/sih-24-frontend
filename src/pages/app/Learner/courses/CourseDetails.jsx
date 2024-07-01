@@ -1,24 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { courses } from "../../../../utils/data/courses.data";
-import { useState } from "react";
 import axios from "axios";
 import { load } from "@cashfreepayments/cashfree-js";
 import { useNavigate } from "react-router-dom";
 import { cashifyApi } from "../../../../api/Cashify";
+import { baseUrl } from "../../../../api/BaseUrl";
+
 const CourseDetails = () => {
   const nav = useNavigate();
   const [orderId, setOrderId] = useState("");
+  const [courseData, setCourseData] = useState(null);
+  const { id } = useParams();
 
-  let { id } = useParams();
+  useEffect(() => {
+    const fetchCourseData = async () => {
+      try {
+        const stdToken = localStorage.getItem("stdToken");
+        const response = await axios.get(`${baseUrl}/api/courses/${id}`, {
+          headers: {
+            Authorization: `Bearer ${stdToken}`,
+          },
+        });
+        setCourseData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching course data:", error);
+      }
+    };
+  
+    fetchCourseData();
+  }, [id]);
+  
 
-  const data = courses.find((course) => course.courseId === parseInt(id));
-
-  console.log(data);
-
-  if (!data) {
-    return <div>Course not found.</div>;
-  }
 
   let cashfree;
 
@@ -80,6 +93,11 @@ const CourseDetails = () => {
       console.log(error);
     }
   };
+
+  if (!courseData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="bg-gray-900 text-white min-h-screen p-4 sm:p-8">
       <div className="max-w-7xl mx-auto">
@@ -89,34 +107,37 @@ const CourseDetails = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:hidden mb-8">
             <img
-              src={data.imgSrc}
+              src={courseData.imgSrc}
               alt="Course preview"
               className="w-full h-auto rounded-md"
             />
-            <button className="w-full bg-purple-600 text-white py-3 rounded-md mt-4">
+            <button
+              className="w-full bg-purple-600 text-white py-3 rounded-md mt-4"
+              onClick={handleClick}
+            >
               Start subscription
             </button>
             <div className="flex items-center justify-between text-sm text-gray-400 mt-4">
               <span>Starting at ₹850 per month</span>
               <span>Cancel anytime</span>
             </div>
-            <div className="text-3xl font-bold mt-4">{data.price}</div>
+            <div className="text-3xl font-bold mt-4">{courseData.price}</div>
           </div>
           <div className="lg:col-span-2">
-            <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
-            <p className="text-lg mb-6">{data.description}</p>
+            <h1 className="text-3xl font-bold mb-4">{courseData.title}</h1>
+            <p className="text-lg mb-6">{courseData.description}</p>
             <br />
             <div className="flex items-center mb-4">
               <span className="bg-yellow-500 text-black px-2 py-1 text-sm font-semibold mr-2">
                 Bestseller
               </span>
-              <span className="text-xl font-semibold">{data.rating}</span>
+              <span className="text-xl font-semibold">{courseData.rating}</span>
               <span className="text-sm text-gray-400 ml-2">
                 (386,295 ratings) 1,287,446 students
               </span>
             </div>
             <div className="text-sm mb-6">
-              <p>{data.instructor}</p>
+              <p>{courseData.instructor}</p>
               <p>Last updated 01/2024</p>
               <p>English</p>
             </div>
@@ -124,7 +145,7 @@ const CourseDetails = () => {
             <div className="mt-8">
               <h2 className="text-2xl font-bold mb-4">What you'll learn</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <ul className="list-disc pl-5 space-y-2">
+              <ul className="list-disc pl-5 space-y-2">
                   <li>
                     Build 16 web development projects for your portfolio, ready
                     to apply for junior developer jobs.
@@ -154,7 +175,7 @@ const CourseDetails = () => {
 
           <div className="hidden lg:block bg-gray-800 rounded-lg p-6">
             <img
-              src={data.imgSrc}
+              src={courseData.imgSrc}
               alt="Course preview"
               className="w-full h-auto rounded-md mb-4"
             />
@@ -163,7 +184,7 @@ const CourseDetails = () => {
               <span>Starting at ₹850 per month</span>
               <span>Cancel anytime</span>
             </div>
-            <div className="text-3xl font-bold mb-4">{data.price}</div>
+            <div className="text-3xl font-bold mb-4">{courseData.price}</div>
             <button
               className="w-full bg-purple-600 text-white py-3 rounded-md mb-4"
               onClick={handleClick}

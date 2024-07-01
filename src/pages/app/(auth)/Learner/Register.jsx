@@ -35,21 +35,25 @@ export default function Register() {
         data
       );
   
-      if (response.data.error) {
-        toast.current.show({
-          severity: "error",
-          summary: "Error",
-          detail: "Failed to register faculty. Please try again later.",
-        });
-      }
-  
+ 
       if (response.status === 200) {
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Faculty registered successfully!",
         });
-        return navigate('/faculty/generic/dashboard');
+
+ 
+        const data = await response.json();
+  
+        if (data.success) {
+          // Store token in localStorage
+          localStorage.setItem("stdToken", data.content.token);
+  
+          // Navigate to dashboard
+          return navigate("/student/dashboard");
+        } 
+
       }
     } catch (error) {
       console.error("Error sending data:", error);

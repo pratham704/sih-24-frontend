@@ -1,6 +1,4 @@
-// src/components/ExploreCourses.jsx
-import React, { useState } from "react";
-import { courses } from "../../../../utils/data/courses.data";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextField, Button, Chip } from "@mui/material";
 import { IoSearchOutline } from "react-icons/io5";
@@ -9,17 +7,21 @@ import { motion } from "framer-motion";
 import { Check } from "@mui/icons-material";
 import Roadmap from "./components/Roadmap";
 import { roadmaps, interests } from "../../../../utils/data/roadmap.data";
+import { baseUrl } from "../../../../api/BaseUrl";
 
 const ExploreCourses = () => {
   const nav = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [showCourses, setShowCourses] = useState(false);
-  const [showRoadmap, setShowRoadmap] = useState(true); // New state for showing roadmap
+  const [showRoadmap, setShowRoadmap] = useState(true);
+  const [courses, setCourses] = useState(null);
 
-  const filteredCourses = courses.filter((course) =>
-    course.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredCourses = courses
+    ? courses.filter((course) =>
+        course.title.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   const toggleInterest = (interest) => {
     setSelectedInterests((prev) =>
@@ -42,11 +44,32 @@ const ExploreCourses = () => {
     setShowCourses(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  
+
   const skipInterests = () => {
     setSelectedInterests([]);
     setShowCourses(true);
   };
+
+  const getCourses = async () => {
+    try {
+      const token = localStorage.getItem('stdToken');
+      const response = await fetch(`${baseUrl}/api/courses`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      const data = await response.json();
+      setCourses(data);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    }
+  };
+  
+  useEffect(() => {
+    getCourses();
+  }, []);
 
   return (
     <div

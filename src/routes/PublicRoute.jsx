@@ -29,6 +29,7 @@ import RegisterInstructor from "../pages/app/(auth)/Instructor/RegisterInstructo
 import InstructorHome from "../pages/app/Instructor/InstructorHome";
 import HomeStudent from "../pages/app/Learner/HomeStudent";
 import NoPerson from "../Proctor/NoPerson";
+import Eye from "../Proctor/Eye";
 const PublicRoute = () => {
   return (
     <PrimeReactProvider>
@@ -182,7 +183,20 @@ const PublicRoute = () => {
                 {/* <SidebarInstructor />
                 <InstructorHome /> */}
 
-                <NoPerson/>
+                <NoPerson />
+              </>
+            }
+          />
+
+          <Route
+            exact
+            path="/eye"
+            element={
+              <>
+                {/* <SidebarInstructor />
+                <InstructorHome /> */}
+
+                <Eye />
               </>
             }
           />

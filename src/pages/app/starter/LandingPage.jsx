@@ -2,12 +2,28 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { Toast } from "primereact/toast";
-               
+
 export default function LandingPage() {
   const navigate = useNavigate();
-  
 
   const toast = useRef(null);
+
+  useEffect(() => {
+    const stdToken = localStorage.getItem("stdToken");
+    const instructToken = localStorage.getItem("instructToken");
+
+    if (stdToken) {
+      console.log("stdToken exists");
+
+      navigate("/student/dashboard");
+    }
+
+    if (instructToken) {
+      console.log("instructToken exists");
+
+      navigate("/instructor/dashboard");
+    }
+  }, []);
 
   return (
     <>
@@ -78,13 +94,13 @@ export default function LandingPage() {
                 maxWidth: "300px",
                 margin: "0 auto",
                 border: "none",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", 
-                transition: "transform 0.3s, box-shadow 0.3s", 
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                transition: "transform 0.3s, box-shadow 0.3s",
               }}
               onClick={() => navigate("/student/account/login")}
               onMouseEnter={(e) =>
                 (e.target.style.transform = "translateY(-3px)")
-              } 
+              }
               onMouseLeave={(e) => (e.target.style.transform = "translateY(0)")}
             >
               Get Started For Students

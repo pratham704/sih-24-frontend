@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
+
+
+
   const nav = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isScrollTopVisible, setIsScrollTopVisible] = useState(false);
@@ -139,7 +142,13 @@ export default function Sidebar() {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
-                // onClick={handleLogout}
+                onClick={()=>{
+
+                  localStorage.removeItem("stdToken")
+
+                  nav('/')
+
+                }}
               >
                 <h3 style={{ color: "#fff" }}>Logout</h3>
               </div>
@@ -210,6 +219,14 @@ export default function Sidebar() {
               boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
               opacity: "0.9",
               fontSize: "14px",
+            }}
+
+            onClick={()=>{
+
+              localStorage.removeItem("stdToken")
+
+              nav('/')
+
             }}
           >
             Logout

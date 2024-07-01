@@ -1,24 +1,52 @@
-import React from 'react';
-import { mycourses } from '../../../../utils/data/courses.data';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { mycourses } from "../../../../utils/data/courses.data";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { baseUrl } from "../../../../api/BaseUrl";
+import axios from "axios";
 const MyCourses = () => {
 
-
-    const  nav = useNavigate()
+  const [first, setfirst] = useState(null)
+  const getMycourse = async () => {
+    try {
+      const stdToken = localStorage.getItem("stdToken");
+      const response = await axios.get(`${baseUrl}/api/courses`, {
+        headers: {
+          Authorization: `Bearer ${stdToken}`,
+        },
+      });
+      // setCourseData(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching course data:", error);
+    }
+  };
+  useEffect(() => {
+    getMycourse()
+  }, [])
+  
+  const nav = useNavigate();
   return (
     <div className="bg-gray-900 min-h-screen p-8 text-white">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold mb-8">My Courses</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {mycourses.map((course, index) => (
-            <div key={index} className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105">
+            <div
+              key={index}
+              className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105"
+            >
               <img
                 src={course.imgSrc}
                 alt={course.title}
                 className="w-full h-64 object-cover"
               />
-              <div className="p-6 pb-8 relative"> {/* Increased padding bottom to increase card height */}
-                <h2 className="text-2xl font-bold mb-2 truncate">{course.title}</h2>
+              <div className="p-6 pb-8 relative">
+                {" "}
+                {/* Increased padding bottom to increase card height */}
+                <h2 className="text-2xl font-bold mb-2 truncate">
+                  {course.title}
+                </h2>
                 <p className="text-gray-400 mb-2">{course.instructor}</p>
                 <div className="flex items-center mb-2">
                   {course.bestseller && (
@@ -27,17 +55,21 @@ const MyCourses = () => {
                     </span>
                   )}
                   <span className="text-lg font-semibold">{course.rating}</span>
-                  <span className="text-sm text-gray-400 ml-2">({course.reviews} reviews)</span>
+                  <span className="text-sm text-gray-400 ml-2">
+                    ({course.reviews} reviews)
+                  </span>
                 </div>
                 <div className="text-lg font-bold mb-2">Details</div>
-                <button 
-                onClick={()=>nav(`/student/my-courses/${course.courseId}`)}
-                
-                className="w-full bg-purple-600 text-white py-3 rounded-md flex justify-center items-center gap-2 transition-colors hover:bg-purple-700">
-                  Continue Learning 
-                  <i className="pi pi-angle-right" style={{ fontSize: '2rem' }}></i>
+                <button
+                  onClick={() => nav(`/student/my-courses/${course.courseId}`)}
+                  className="w-full bg-purple-600 text-white py-3 rounded-md flex justify-center items-center gap-2 transition-colors hover:bg-purple-700"
+                >
+                  Continue Learning
+                  <i
+                    className="pi pi-angle-right"
+                    style={{ fontSize: "2rem" }}
+                  ></i>
                 </button>
-
                 <br />
                 <div className="absolute bottom-0 right-0 bg-gray-700 text-white px-4 py-2 rounded-tl-lg">
                   Valid till {course.expiry}
