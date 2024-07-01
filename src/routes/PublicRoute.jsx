@@ -28,6 +28,7 @@ import LoginInstructor from "../pages/app/(auth)/Instructor/LoginInstructor";
 import RegisterInstructor from "../pages/app/(auth)/Instructor/RegisterInstructor";
 import InstructorHome from "../pages/app/Instructor/InstructorHome";
 import HomeStudent from "../pages/app/Learner/HomeStudent";
+import NoPerson from "../Proctor/NoPerson";
 const PublicRoute = () => {
   return (
     <PrimeReactProvider>
@@ -169,6 +170,19 @@ const PublicRoute = () => {
               <>
                 <SidebarInstructor />
                 <InstructorHome />
+              </>
+            }
+          />
+
+          <Route
+            exact
+            path="/no-person"
+            element={
+              <>
+                {/* <SidebarInstructor />
+                <InstructorHome /> */}
+
+                <NoPerson/>
               </>
             }
           />

@@ -7,8 +7,7 @@ import { load } from "@cashfreepayments/cashfree-js";
 import { useNavigate } from "react-router-dom";
 import { cashifyApi } from "../../../../api/Cashify";
 const CourseDetails = () => {
-
-  const nav = useNavigate()
+  const nav = useNavigate();
   const [orderId, setOrderId] = useState("");
 
   let { id } = useParams();
@@ -52,14 +51,10 @@ const CourseDetails = () => {
       });
 
       if (res && res.data) {
-        console.log(res.data)
+        console.log(res.data);
         alert("payment verified");
 
-
-
-        nav('/student/dashboard')
-
-
+        nav("/student/dashboard");
       }
     } catch (error) {
       console.log(error);
