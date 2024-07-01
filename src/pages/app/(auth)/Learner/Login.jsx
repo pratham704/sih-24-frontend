@@ -12,6 +12,7 @@ function Login() {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [captchaVerified, setCaptchaVerified] = useState(false); // State to track captcha verification
 
   const handleSignUpClick = () => {
     setIsSignUpMode(true);
@@ -23,13 +24,18 @@ function Login() {
 
   const onCaptchaChange = (value) => {
     console.log("Captcha value:", value);
+    if (value) {
+      setCaptchaVerified(true); // Set captcha verification state to true if value is present
+    } else {
+      setCaptchaVerified(false); // Set captcha verification state to false if value is empty
+    }
   };
 
   const validateAndSignIn = async () => {
-    // if (!validateEmail(email)) {
-    //   alert("Please enter a valid email address.");
-    //   return;
-    // }
+    if (!captchaVerified) {
+      alert("Please complete the reCAPTCHA verification.");
+      return;
+    }
 
     if (password.length < 6) {
       alert("Password must be at least 6 characters long.");
@@ -57,7 +63,7 @@ function Login() {
 
         // Navigate to dashboard
         nav("/student/dashboard");
-      }  else {
+      } else {
         throw new Error("Authentication failed");
       }
     } catch (error) {
@@ -79,7 +85,10 @@ function Login() {
           <div className="sign-in-form loginForm">
             <h2 className="title">Sign in</h2>
             <div className="input-field">
-              <FontAwesomeIcon icon={faEnvelope} className="my-auto mx-auto" />
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                className="my-auto mx-auto"
+              />
               <input
                 className="LoginInput"
                 type="text"
@@ -110,7 +119,10 @@ function Login() {
             <p className="social-text loginp">Sign in with social platforms</p>
             <div className="social-media">
               <a className="social-icon">
-                <FontAwesomeIcon icon={faGoogle} className="my-auto mx-auto" />
+                <FontAwesomeIcon
+                  icon={faGoogle}
+                  className="my-auto mx-auto"
+                />
               </a>
               <a className="social-icon">
                 <FontAwesomeIcon

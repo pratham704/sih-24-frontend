@@ -12,7 +12,9 @@ import HomeFeature from "./Layouts/HomeFeatures";
 import Mentor from "./Layouts/Mentor";
 import Courses from "./Layouts/Courses";
 import Sidebar from "../../../components/Student/Sidebar";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
 const exps = [
   {
     label: "Students",
@@ -29,10 +31,6 @@ const exps = [
 ];
 
 const ExpItem = ({ item }) => {
-
-
- 
-
   const { value, label } = item;
   return (
     <Box sx={{ textAlign: "center", mb: { xs: 1, md: 0 } }}>
@@ -54,6 +52,15 @@ const ExpItem = ({ item }) => {
 };
 
 const HomeHero = () => {
+  const nav = useNavigate();
+
+  useEffect(() => {
+    const stdToken = localStorage.getItem("stdToken");
+
+    if (!stdToken) {
+      nav("/");
+    }
+  }, []);
 
   return (
     <>
@@ -183,6 +190,8 @@ const HomeHero = () => {
                       smooth={true}
                       offset={0}
                       duration={350}
+
+                      onClick={()=>nav('/student/home')}
                     >
                       <StyledButton
                         color="primary"
@@ -191,6 +200,8 @@ const HomeHero = () => {
                         style={{
                           marginBottom: "1rem",
                         }}
+
+                      
                       >
                         Get Started
                       </StyledButton>
@@ -202,7 +213,7 @@ const HomeHero = () => {
                       offset={0}
                       duration={350}
                     >
-                      <StyledButton
+                      {/* <StyledButton
                         color="primary"
                         size="large"
                         variant="outlined"
@@ -211,8 +222,7 @@ const HomeHero = () => {
                           marginBottom: "1rem",
                         }}
                       >
-                        Watch Video
-                      </StyledButton>
+                      </StyledButton> */}
                     </ScrollLink>
                   </Box>
                 </Box>

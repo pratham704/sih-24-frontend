@@ -27,11 +27,9 @@ const CourseDetails = () => {
         console.error("Error fetching course data:", error);
       }
     };
-  
+
     fetchCourseData();
   }, [id]);
-  
-
 
   let cashfree;
 
@@ -59,15 +57,18 @@ const CourseDetails = () => {
 
   const verifyPayment = async () => {
     try {
+      alert("payment verified");
       let res = await axios.post(`${cashifyApi}/verify`, {
         orderId: orderId,
       });
+      nav("/student/dashboard");
+
+
+      registerCourse();
+
 
       if (res && res.data) {
         console.log(res.data);
-        alert("payment verified");
-
-        nav("/student/dashboard");
       }
     } catch (error) {
       console.log(error);
@@ -97,6 +98,32 @@ const CourseDetails = () => {
   if (!courseData) {
     return <div>Loading...</div>;
   }
+
+  const registerCourse = async () => {
+    try {
+      const stdToken = localStorage.getItem("stdToken");
+
+      if (!stdToken) {
+        throw new Error("stdToken not found in local storage");
+      }
+
+      const response = await axios.post(
+        `${baseUrl}/api/courses/${id}/enroll`,
+        {
+          courseId: courseData.courseId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${stdToken}`,
+          },
+        }
+      );
+
+      console.log("Course registration successful:", response.data);
+    } catch (error) {
+      console.error("Error registering course:", error);
+    }
+  };
 
   return (
     <div className="bg-gray-900 text-white min-h-screen p-4 sm:p-8">
@@ -145,7 +172,7 @@ const CourseDetails = () => {
             <div className="mt-8">
               <h2 className="text-2xl font-bold mb-4">What you'll learn</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <ul className="list-disc pl-5 space-y-2">
+                <ul className="list-disc pl-5 space-y-2">
                   <li>
                     Build 16 web development projects for your portfolio, ready
                     to apply for junior developer jobs.

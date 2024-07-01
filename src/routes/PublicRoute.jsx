@@ -30,6 +30,8 @@ import InstructorHome from "../pages/app/Instructor/InstructorHome";
 import HomeStudent from "../pages/app/Learner/HomeStudent";
 import NoPerson from "../Proctor/NoPerson";
 import Eye from "../Proctor/Eye";
+import Candidate from "../Proctor/Candidate";
+import Proctor from "../Proctor/Proctor";
 const PublicRoute = () => {
   return (
     <PrimeReactProvider>
@@ -116,7 +118,6 @@ const PublicRoute = () => {
               </>
             }
           />
-
           <Route
             exact
             path="/student/home"
@@ -127,9 +128,7 @@ const PublicRoute = () => {
               </>
             }
           />
-
           {/* for the instructors  */}
-
           <Route
             exact
             path="/instructor/account/login"
@@ -140,7 +139,6 @@ const PublicRoute = () => {
               </>
             }
           />
-
           <Route
             exact
             path="/instructor/account/register"
@@ -152,7 +150,6 @@ const PublicRoute = () => {
               </>
             }
           />
-
           <Route
             exact
             path="/instructor/dashboard"
@@ -163,7 +160,6 @@ const PublicRoute = () => {
               </>
             }
           />
-
           <Route
             exact
             path="/instructor/Home"
@@ -174,7 +170,6 @@ const PublicRoute = () => {
               </>
             }
           />
-
           <Route
             exact
             path="/no-person"
@@ -187,7 +182,6 @@ const PublicRoute = () => {
               </>
             }
           />
-
           <Route
             exact
             path="/eye"
@@ -197,6 +191,31 @@ const PublicRoute = () => {
                 <InstructorHome /> */}
 
                 <Eye />
+              </>
+            }
+          />
+          // PROCTORING
+          <Route
+            exact
+            path="/candidate"
+            element={
+              <>
+                {/* <SidebarInstructor />
+                <InstructorHome /> */}
+
+                <Candidate />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/proctor"
+            element={
+              <>
+                {/* <SidebarInstructor />
+                <InstructorHome /> */}
+
+                <Proctor />
               </>
             }
           />

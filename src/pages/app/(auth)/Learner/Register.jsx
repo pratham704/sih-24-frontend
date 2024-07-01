@@ -8,6 +8,8 @@ import { baseUrl } from "../../../../api/BaseUrl";
 
 export default function Register() {
   const navigate = useNavigate();
+
+  const nav = useNavigate();
   const toast = useRef(null);
 
   const [facultyData, setFacultyData] = useState({
@@ -21,39 +23,30 @@ export default function Register() {
     const { name, value } = e.target;
     setFacultyData({ ...facultyData, [name]: value });
   };
+
   const handleSubmit = async () => {
     const { faculty_email, faculty_password } = facultyData;
-  
+
     const data = {
       email: faculty_email,
       password: faculty_password,
     };
-  
+
     try {
-      const response = await axios.post(
-        `${baseUrl}/api/auth/register`,
-        data
-      );
-  
- 
+      const response = await axios.post(`${baseUrl}/api/auth/register`, data);
+
       if (response.status === 200) {
+        const token = response.data.content.token;
+        localStorage.setItem("stdToken", token);
+
         toast.current.show({
           severity: "success",
           summary: "Success",
-          detail: "Faculty registered successfully!",
+          detail: "Registered successfully!",
         });
 
- 
-        const data = await response.json();
-  
-        if (data.success) {
-          // Store token in localStorage
-          localStorage.setItem("stdToken", data.content.token);
-  
-          // Navigate to dashboard
-          return navigate("/student/dashboard");
-        } 
-
+        // Assuming nav is a function to navigate to a new location
+        nav("/student/dashboard");
       }
     } catch (error) {
       console.error("Error sending data:", error);
@@ -64,7 +57,6 @@ export default function Register() {
       });
     }
   };
-  
 
   return (
     <Grid
