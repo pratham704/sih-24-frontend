@@ -88,7 +88,7 @@ export default function Sidebar() {
             >
               <div
                 style={divStyles}
-                onClick={() => nav("/student/dashboard")}
+                onClick={() => nav("/student/home")}
               >
                 <h3 style={{ color: "#fff" }}>Home</h3>
               </div>

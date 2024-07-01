@@ -88,7 +88,7 @@ export default function SidebarInstructor() {
             >
               <div
                 style={divStyles}
-                onClick={() => nav("/student/dashboard")}
+                onClick={() => nav("/instructor/home")}
               >
                 <h3 style={{ color: "#fff" }}>Home</h3>
               </div>

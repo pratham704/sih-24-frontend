@@ -39,7 +39,8 @@ const ExploreCourses = () => {
 
   const skipRoadmap = () => {
     setShowRoadmap(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setShowCourses(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   
   const skipInterests = () => {
@@ -121,14 +122,12 @@ const ExploreCourses = () => {
                     roadmaps={roadmaps}
                   />
                 </div>
-
                 <Button
                   variant="outlined"
                   color="secondary"
                   onClick={skipRoadmap}
                   className="p-3 text-lg"
                 >
-
                   Next
                 </Button>
               </>

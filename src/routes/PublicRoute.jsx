@@ -26,6 +26,8 @@ import Register from "../pages/app/(auth)/Learner/Register";
 import Login from "../pages/app/(auth)/Learner/Login";
 import LoginInstructor from "../pages/app/(auth)/Instructor/LoginInstructor";
 import RegisterInstructor from "../pages/app/(auth)/Instructor/RegisterInstructor";
+import InstructorHome from "../pages/app/Instructor/InstructorHome";
+import HomeStudent from "../pages/app/Learner/HomeStudent";
 const PublicRoute = () => {
   return (
     <PrimeReactProvider>
@@ -113,6 +115,17 @@ const PublicRoute = () => {
             }
           />
 
+          <Route
+            exact
+            path="/student/home"
+            element={
+              <>
+                <Sidebar />
+                <HomeStudent />
+              </>
+            }
+          />
+
           {/* for the instructors  */}
 
           <Route
@@ -121,7 +134,7 @@ const PublicRoute = () => {
             element={
               <>
                 {/* <SingleCourse /> */}
-                <LoginInstructor/>
+                <LoginInstructor />
               </>
             }
           />
@@ -133,7 +146,7 @@ const PublicRoute = () => {
               <>
                 {/* <SingleCourse /> */}
 
-                <RegisterInstructor/>
+                <RegisterInstructor />
               </>
             }
           />
@@ -145,6 +158,17 @@ const PublicRoute = () => {
               <>
                 <SidebarInstructor />
                 <DashboardInstructor />
+              </>
+            }
+          />
+
+          <Route
+            exact
+            path="/instructor/Home"
+            element={
+              <>
+                <SidebarInstructor />
+                <InstructorHome />
               </>
             }
           />

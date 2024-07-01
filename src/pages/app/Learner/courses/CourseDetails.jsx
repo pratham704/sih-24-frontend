@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { load } from "@cashfreepayments/cashfree-js";
 import { useNavigate } from "react-router-dom";
+import { cashifyApi } from "../../../../api/Cashify";
 const CourseDetails = () => {
 
   const nav = useNavigate()
@@ -32,7 +33,7 @@ const CourseDetails = () => {
 
   const getSessionId = async () => {
     try {
-      let res = await axios.get("https://cashify-node-server.vercel.app/payment");
+      let res = await axios.get(`${cashifyApi}/payment`);
 
       if (res.data && res.data.payment_session_id) {
         console.log(res.data);
@@ -46,7 +47,7 @@ const CourseDetails = () => {
 
   const verifyPayment = async () => {
     try {
-      let res = await axios.post("https://cashify-node-server.vercel.app/verify", {
+      let res = await axios.post(`${cashifyApi}/verify`, {
         orderId: orderId,
       });
 
