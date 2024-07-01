@@ -11,7 +11,7 @@ const Eye = () => {
       const imageSrc = webcamRef.current.getScreenshot();
       try {
         const response = await axios.post('http://localhost:5000/upload', {
-          image: imageSrc.split(',')[1], // Remove the base64 prefix
+          image: imageSrc.split(',')[1], 
         });
         console.log(response.data);
       } catch (error) {
