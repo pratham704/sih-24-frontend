@@ -18,19 +18,19 @@ const sections = [
     points: [
       {
         title: "1. Intro (3min)",
-        video: "https://www.youtube.com/embed/30LWjhZzg50",
+        video: "https://player.vimeo.com/video/972977597?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
       },
       {
         title: "2. The Why (3min)",
-        video: "https://www.youtube.com/embed/someVideoID2",
+        video: "https://player.vimeo.com/video/972979396?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
       },
       {
         title: "3. Side-Note about Perception (4min)",
-        video: "https://www.youtube.com/embed/someVideoID3",
+        video: "https://player.vimeo.com/video/972982942?badge=0&autopause=0&player_id=0&app_id=58479/embed",
       },
       {
         title: "4. Take Out the Trash (3min)",
-        video: "https://www.youtube.com/embed/someVideoID4",
+        video: "https://player.vimeo.com/video/972984271?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
       },
       {
         title: "5. Beliefs (5min)",
