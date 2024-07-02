@@ -95,7 +95,7 @@ const MyCourses = () => {
                   </button>
                   <br />
                   <div className="absolute bottom-0 right-0 bg-gray-700 text-white px-4 py-2 rounded-tl-lg">
-                    Valid till {course.expiry}
+                    {/* Valid till {course.expiry} */}
                   </div>
                 </div>
               </div>
