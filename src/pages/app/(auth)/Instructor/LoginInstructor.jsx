@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
-
+import { baseUrl } from "../../../../api/BaseUrl";
 import "../module/login.css";
 
 function LoginInstructor() {
   const nav = useNavigate();
   const [isSignUpMode, setIsSignUpMode] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [captchaVerified, setCaptchaVerified] = useState(false); // State to track captcha verification
 
   const handleSignUpClick = () => {
     setIsSignUpMode(true);
@@ -21,6 +24,58 @@ function LoginInstructor() {
 
   const onCaptchaChange = (value) => {
     console.log("Captcha value:", value);
+    if (value) {
+      setCaptchaVerified(true); // Set captcha verification state to true if value is present
+    } else {
+      setCaptchaVerified(false); // Set captcha verification state to false if value is empty
+    }
+  };
+
+  const validateAndSignIn = async () => {
+    if (!captchaVerified) {
+      alert("Please complete the reCAPTCHA verification.");
+      return;
+    }
+
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters long.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${baseUrl}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Authentication failed");
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Store token in localStorage
+        localStorage.setItem("instToken", data.content.token);
+
+        // Navigate to dashboard
+        nav("/instructor/dashboard");
+      } else {
+        throw new Error("Authentication failed");
+      }
+    } catch (error) {
+      console.error("Authentication error:", error);
+      alert("Authentication failed. Please check your credentials.");
+    }
+  };
+
+  const validateEmail = (email) => {
+    // Basic email validation regex
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
   };
 
   return (
@@ -28,14 +83,19 @@ function LoginInstructor() {
       <div className="forms-container">
         <div className="signin-signup">
           <div className="sign-in-form loginForm">
-            <h2 className="title">Instructor Sign in</h2>
+            <h2 className="title">Sign in Instructor</h2>
             <div className="input-field">
-              <FontAwesomeIcon icon={faEnvelope} className="my-auto mx-auto" />
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                className="my-auto mx-auto"
+              />
               <input
                 className="LoginInput"
                 type="text"
-                name="faculty_uid"
+                name="email"
                 placeholder=" Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="input-field">
@@ -43,21 +103,26 @@ function LoginInstructor() {
               <input
                 className="LoginInput"
                 type="password"
-                name="faculty_password"
+                name="password"
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <ReCAPTCHA
               sitekey={process.env.REACT_APP_CAPTCHA_SITE_KEY}
               onChange={onCaptchaChange}
             />
-            <button className="btns" onClick={() => nav("/instructor/dashboard")}>
-              Sign In
-            </button>
+            <button className="btns" onClick={validateAndSignIn}>
+              Sign In 
+            </button> 
             <p className="social-text loginp">Sign in with social platforms</p>
             <div className="social-media">
               <a className="social-icon">
-                <FontAwesomeIcon icon={faGoogle} className="my-auto mx-auto" />
+                <FontAwesomeIcon
+                  icon={faGoogle}
+                  className="my-auto mx-auto"
+                />
               </a>
               <a className="social-icon">
                 <FontAwesomeIcon
@@ -99,7 +164,7 @@ function LoginInstructor() {
               Sign up
             </button>
           </div>
-          {/* <img src="/img/dogLogin1.svg" className="image" alt="" /> */}
+          <img src="/img/dogLogin1.svg" className="image" alt="" />
         </div>
         <div className="panel right-panel">
           <div className="content">

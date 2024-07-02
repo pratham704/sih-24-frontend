@@ -19,11 +19,15 @@ const Candidate = () => {
         peer.on('call', (call) => {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
                 localVideoRef.current.srcObject = stream;
-                localVideoRef.current.play();
+                localVideoRef.current.onloadedmetadata = () => {
+                    localVideoRef.current.play();
+                };
                 call.answer(stream);
                 call.on('stream', (remoteStream) => {
                     remoteVideoRef.current.srcObject = remoteStream;
-                    remoteVideoRef.current.play();
+                    remoteVideoRef.current.onloadedmetadata = () => {
+                        remoteVideoRef.current.play();
+                    };
                 });
                 currentCallRef.current = call;
                 setIsConnected(true);
@@ -36,11 +40,15 @@ const Candidate = () => {
     const callPeer = (remoteId) => {
         navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
             localVideoRef.current.srcObject = stream;
-            localVideoRef.current.play();
+            localVideoRef.current.onloadedmetadata = () => {
+                localVideoRef.current.play();
+            };
             const call = peerRef.current.call(remoteId, stream);
             call.on('stream', (remoteStream) => {
                 remoteVideoRef.current.srcObject = remoteStream;
-                remoteVideoRef.current.play();
+                remoteVideoRef.current.onloadedmetadata = () => {
+                    remoteVideoRef.current.play();
+                };
             });
             currentCallRef.current = call;
             setIsConnected(true);
@@ -58,10 +66,16 @@ const Candidate = () => {
                     const localVideoTrack = stream.getVideoTracks()[0];
                     sender.replaceTrack(localVideoTrack);
                     localVideoRef.current.srcObject = stream;
+                    localVideoRef.current.onloadedmetadata = () => {
+                        localVideoRef.current.play();
+                    };
                 });
             };
 
             localVideoRef.current.srcObject = screenStream;
+            localVideoRef.current.onloadedmetadata = () => {
+                localVideoRef.current.play();
+            };
         });
     };
 

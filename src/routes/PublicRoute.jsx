@@ -32,6 +32,8 @@ import NoPerson from "../Proctor/NoPerson";
 import Eye from "../Proctor/Eye";
 import Candidate from "../Proctor/Candidate";
 import Proctor from "../Proctor/Proctor";
+import MyPrograms from "../pages/app/Instructor/MyPrograms";
+import AddCourses from "../pages/app/Instructor/AddCourses";
 const PublicRoute = () => {
   return (
     <PrimeReactProvider>
@@ -167,6 +169,30 @@ const PublicRoute = () => {
               <>
                 <SidebarInstructor />
                 <InstructorHome />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/instructor/my-programs"
+            element={
+              <>
+                <SidebarInstructor />
+                {/* < /> */}
+
+                <MyPrograms />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/instructor/add-course"
+            element={
+              <>
+                <SidebarInstructor />
+                {/* < /> */}
+
+                <AddCourses />
               </>
             }
           />

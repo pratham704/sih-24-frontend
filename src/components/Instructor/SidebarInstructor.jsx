@@ -86,10 +86,7 @@ export default function SidebarInstructor() {
               }}
               onClick={toggleSidebar}
             >
-              <div
-                style={divStyles}
-                onClick={() => nav("/instructor/home")}
-              >
+              <div style={divStyles} onClick={() => nav("/instructor/home")}>
                 <h3 style={{ color: "#fff" }}>Home</h3>
               </div>
               <br />
@@ -100,19 +97,18 @@ export default function SidebarInstructor() {
                 <h3 style={{ color: "#fff" }}>Codeium</h3>
               </div>
 
+              <br />
+              <div
+                style={divStyles}
+                onClick={() => nav("/instructor/my-programs")}
+              >
+                <h3 style={{ color: "#fff" }}>My programs</h3>
+              </div>
 
               <br />
               <div
                 style={divStyles}
-                onClick={() => nav("/student/my-courses")}
-              >
-                <h3 style={{ color: "#fff" }}>My programs</h3>
-              </div>
-           
-              <br />
-              <div
-                style={divStyles}
-                onClick={() => nav("/student/explore-courses")}
+                onClick={() => nav("/instructor/add-course")}
               >
                 <h3 style={{ color: "#fff" }}>Add courses</h3>
               </div>
@@ -139,7 +135,11 @@ export default function SidebarInstructor() {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
-                // onClick={handleLogout}
+                onClick={() => {
+                  localStorage.removeItem("instToken");
+
+                  nav("/");
+                }}
               >
                 <h3 style={{ color: "#fff" }}>Logout</h3>
               </div>
@@ -155,7 +155,7 @@ export default function SidebarInstructor() {
           justifyContent: "space-between",
           alignItems: "center",
           backgroundColor: "black",
-          borderBottom:'1px solid wheat',
+          borderBottom: "1px solid wheat",
           padding: "10px 20px",
           zIndex: "102",
           boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
@@ -193,12 +193,16 @@ export default function SidebarInstructor() {
               fontFamily: "Arial, sans-serif",
             }}
           >
-           Instructor  Workflow
+            Instructor Workflow
           </h1>
         </div>
         <div style={{ flex: "1", textAlign: "right" }}>
           <button
-            // onClick={handleLogout}
+            onClick={() => {
+              localStorage.removeItem("instToken");
+
+              nav("/");
+            }}
             style={{
               background:
                 "linear-gradient(330deg, rgb(65, 64, 84) 0%, rgb(255 0 0))",
