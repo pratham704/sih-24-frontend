@@ -84,7 +84,7 @@ const MyCourses = () => {
                   </div>
                   <div className="text-lg font-bold mb-2">Details</div>
                   <button
-                    onClick={() => nav(`/student/my-courses/${course.courseId}`)}
+                    onClick={() => nav(`/student/my-courses/1}`)}
                     className="w-full bg-purple-600 text-white py-3 rounded-md flex justify-center items-center gap-2 transition-colors hover:bg-purple-700"
                   >
                     Continue Learning

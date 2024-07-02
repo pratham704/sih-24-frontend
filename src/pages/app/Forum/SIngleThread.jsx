@@ -139,7 +139,7 @@ const SingleThread = () => {
               <p className="text-gray-300">{post.content}</p>
               <div className="flex justify-between items-center mt-2">
                 <p className="text-gray-500 text-sm">
-                  Posted by {post.userId} on {post.formattedCreatedAt}
+                  Posted by  user on {post.formattedCreatedAt}
                 </p>
                 {/* Add additional details or actions here */}
               </div>
