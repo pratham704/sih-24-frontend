@@ -5,6 +5,7 @@ import { baseUrl } from "../../../../api/BaseUrl";
 
 const MyCourses = () => {
   const [mycourses, setMycourses] = useState(null);
+  const [loading, setLoading] = useState(true); // State for loading indicator
 
   const getMycourses = async () => {
     try {
@@ -15,8 +16,10 @@ const MyCourses = () => {
         },
       });
       setMycourses(response.data);
+      setLoading(false); // Set loading to false once data is fetched
     } catch (error) {
       console.error("Error fetching course data:", error);
+      setLoading(false); // Set loading to false in case of error
     }
   };
 
@@ -31,6 +34,25 @@ const MyCourses = () => {
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold mb-8">My Courses</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {loading && (
+            // Skeleton loader while loading
+            <>
+              {[1, 2, 3].map((placeholder, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-800 rounded-lg overflow-hidden shadow-lg animate-pulse"
+                >
+                  <div className="bg-gray-700 h-64"></div>
+                  <div className="p-6 pb-8 relative">
+                    <div className="bg-gray-700 h-4 w-3/4 mb-4"></div>
+                    <div className="bg-gray-700 h-4 w-1/2 mb-2"></div>
+                    <div className="bg-gray-700 h-4 w-1/4 mb-2"></div>
+                    <div className="bg-gray-700 h-4 w-1/3"></div>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
           {mycourses ? (
             mycourses.map((course, index) => (
               <div
@@ -62,10 +84,7 @@ const MyCourses = () => {
                   </div>
                   <div className="text-lg font-bold mb-2">Details</div>
                   <button
-                    onClick={
-                      () => nav(`/student/my-courses/2`)
-                      // nav(`/student/my-courses/${course.courseId}`)
-                    }
+                    onClick={() => nav(`/student/my-courses/${course.courseId}`)}
                     className="w-full bg-purple-600 text-white py-3 rounded-md flex justify-center items-center gap-2 transition-colors hover:bg-purple-700"
                   >
                     Continue Learning
@@ -81,8 +100,8 @@ const MyCourses = () => {
                 </div>
               </div>
             ))
-          ) : (
-            <p>Loading...</p>
+          ) : !loading && (
+            <p>No courses found.</p>
           )}
         </div>
       </div>
