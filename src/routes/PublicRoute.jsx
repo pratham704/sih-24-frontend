@@ -10,7 +10,7 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "primeicons/primeicons.css";
 
 //pages import
-
+import Forum from "../pages/app/Forum/Forum";
 import Sidebar from "../components/Student/Sidebar";
 import SidebarInstructor from "../components/Instructor/SidebarInstructor";
 import Dashboard from "../pages/app/dashboard/Dashboard";
@@ -34,6 +34,7 @@ import Candidate from "../Proctor/Candidate";
 import Proctor from "../Proctor/Proctor";
 import MyPrograms from "../pages/app/Instructor/MyPrograms";
 import AddCourses from "../pages/app/Instructor/AddCourses";
+import SIngleThread from "../pages/app/Forum/SIngleThread";
 const PublicRoute = () => {
   return (
     <PrimeReactProvider>
@@ -190,7 +191,6 @@ const PublicRoute = () => {
             element={
               <>
                 <SidebarInstructor />
-                {/* < /> */}
 
                 <AddCourses />
               </>
@@ -242,6 +242,31 @@ const PublicRoute = () => {
                 <InstructorHome /> */}
 
                 <Proctor />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/forum"
+            element={
+              <>
+                {/* <SidebarInstructor />
+                <InstructorHome /> */}
+                <Sidebar />
+                <Forum />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/forum/:id"
+            element={
+              <>
+                {/* <SidebarInstructor />
+                <InstructorHome /> */}
+                <Sidebar />
+
+                <SIngleThread />
               </>
             }
           />

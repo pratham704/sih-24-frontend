@@ -63,10 +63,7 @@ const MyPrograms = () => {
                   </div>
                   <div className="text-lg font-bold mb-2">Details</div>
                   <button
-                    onClick={
-                      () => nav(`/student/my-courses/2`)
-                      // nav(`/student/my-courses/${course.courseId}`)
-                    }
+                  
                     className="w-full bg-purple-600 text-white py-3 rounded-md flex justify-center items-center gap-2 transition-colors hover:bg-purple-700"
                   >
 

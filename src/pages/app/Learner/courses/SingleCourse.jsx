@@ -67,7 +67,7 @@ const SingleCourse = () => {
     setCapturing(true);
     const interval = setInterval(() => {
       captureAndSend();
-    }, 5000);
+    }, 3000);
 
     return () => {
       clearInterval(interval);

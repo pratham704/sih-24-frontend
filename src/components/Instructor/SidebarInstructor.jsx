@@ -115,12 +115,12 @@ export default function SidebarInstructor() {
 
               <br />
 
-              <div
+              {/* <div
                 style={divStyles}
                 onClick={() => nav("/student/generic/project")}
               >
                 <h3 style={{ color: "#fff" }}>Profile</h3>
-              </div>
+              </div> */}
               <div
                 style={{
                   backgroundColor: "rgb(232 51 86 / 68%)",

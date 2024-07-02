@@ -124,9 +124,9 @@ export default function Sidebar() {
 
               <div
                 style={divStyles}
-                onClick={() => nav("/student/generic/project")}
+                onClick={() => nav("/forum")}
               >
-                <h3 style={{ color: "#fff" }}>Profile</h3>
+                <h3 style={{ color: "#fff" }}>Forum</h3>
               </div>
               <div
                 style={{
