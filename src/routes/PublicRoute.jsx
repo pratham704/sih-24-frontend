@@ -12,9 +12,7 @@ import "primeicons/primeicons.css";
 //pages import
 import Forum from "../pages/app/Forum/Forum";
 import Sidebar from "../components/Student/Sidebar";
-import SidebarInstructor from "../components/Instructor/SidebarInstructor";
 import Dashboard from "../pages/app/dashboard/Dashboard";
-import DashboardInstructor from "../pages/app/dashboard/DashboardInstructor";
 import CodeEditor from "../pages/app/Editor/CodeEditor";
 import Certificate from "../pages/app/certifications/Certificate";
 import LandingPage from "../pages/app/starter/LandingPage";
@@ -24,16 +22,13 @@ import MyCourses from "../pages/app/Learner/courses/MyCourses";
 import SingleCourse from "../pages/app/Learner/courses/SingleCourse";
 import Register from "../pages/app/(auth)/Learner/Register";
 import Login from "../pages/app/(auth)/Learner/Login";
-import LoginInstructor from "../pages/app/(auth)/Instructor/LoginInstructor";
-import RegisterInstructor from "../pages/app/(auth)/Instructor/RegisterInstructor";
-import InstructorHome from "../pages/app/Instructor/InstructorHome";
 import HomeStudent from "../pages/app/Learner/HomeStudent";
-import NoPerson from "../Proctor/NoPerson";
-import Eye from "../Proctor/Eye";
 import Candidate from "../Proctor/Candidate";
 import Proctor from "../Proctor/Proctor";
-import MyPrograms from "../pages/app/Instructor/MyPrograms";
-import AddCourses from "../pages/app/Instructor/AddCourses";
+import NotFound from "../components/NotFound/NotFound";
+import NoPerson from "../Proctor/NoPerson";
+import Eye from "../Proctor/Eye";
+
 import SIngleThread from "../pages/app/Forum/SIngleThread";
 const PublicRoute = () => {
   return (
@@ -44,6 +39,9 @@ const PublicRoute = () => {
         ) && <Sidebar />} */}
         <Routes>
           <Route exact path="/" element={<LandingPage />} />
+
+          <Route path="*" element={<NotFound />} />
+
           {/* student */}
           <Route exact path="/student/account/login" element={<Login />} />
           <Route
@@ -131,104 +129,13 @@ const PublicRoute = () => {
               </>
             }
           />
-          {/* for the instructors  */}
-          <Route
-            exact
-            path="/instructor/account/login"
-            element={
-              <>
-                {/* <SingleCourse /> */}
-                <LoginInstructor />
-              </>
-            }
-          />
-          <Route
-            exact
-            path="/instructor/account/register"
-            element={
-              <>
-                {/* <SingleCourse /> */}
 
-                <RegisterInstructor />
-              </>
-            }
-          />
-          <Route
-            exact
-            path="/instructor/dashboard"
-            element={
-              <>
-                <SidebarInstructor />
-                <DashboardInstructor />
-              </>
-            }
-          />
-          <Route
-            exact
-            path="/instructor/Home"
-            element={
-              <>
-                <SidebarInstructor />
-                <InstructorHome />
-              </>
-            }
-          />
-          <Route
-            exact
-            path="/instructor/my-programs"
-            element={
-              <>
-                <SidebarInstructor />
-                {/* < /> */}
-
-                <MyPrograms />
-              </>
-            }
-          />
-          <Route
-            exact
-            path="/instructor/add-course"
-            element={
-              <>
-                <SidebarInstructor />
-
-                <AddCourses />
-              </>
-            }
-          />
-          <Route
-            exact
-            path="/no-person"
-            element={
-              <>
-                {/* <SidebarInstructor />
-                <InstructorHome /> */}
-
-                <NoPerson />
-              </>
-            }
-          />
-          <Route
-            exact
-            path="/eye"
-            element={
-              <>
-                {/* <SidebarInstructor />
-                <InstructorHome /> */}
-
-                <Eye />
-              </>
-            }
-          />
-          // PROCTORING
+          {/* // PROCTORING */}
           <Route
             exact
             path="/candidate"
             element={
               <>
-                {/* <SidebarInstructor />
-                <InstructorHome /> */}
-
                 <Candidate />
               </>
             }
@@ -238,13 +145,33 @@ const PublicRoute = () => {
             path="/proctor"
             element={
               <>
-                {/* <SidebarInstructor />
-                <InstructorHome /> */}
-
                 <Proctor />
               </>
             }
           />
+
+          <Route
+            exact
+            path="/no-person"
+            element={
+              <>
+                <NoPerson />
+              </>
+            }
+          />
+
+          <Route
+            exact
+            path="/eye"
+            element={
+              <>
+                <Eye />
+              </>
+            }
+          />
+
+          {/* Forum  */}
+
           <Route
             exact
             path="/forum"

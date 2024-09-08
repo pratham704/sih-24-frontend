@@ -15,10 +15,10 @@ import { useNavigate } from "react-router-dom";
 
 const CourseCardSkeleton = () => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow animate-pulse">
-      <div className="h-6 bg-gray-300 rounded mb-2"></div>
-      <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-      <div className="h-4 bg-gray-300 rounded w-1/2 mt-2"></div>
+    <div className="bg-gray-700 p-4 rounded-lg shadow animate-pulse">
+      <div className="h-6 bg-gray-500 rounded mb-2"></div>
+      <div className="h-4 bg-gray-500 rounded w-3/4"></div>
+      <div className="h-4 bg-gray-500 rounded w-1/2 mt-2"></div>
       <button className="mt-2 px-4 py-2 bg-green-500 text-white rounded opacity-0">
         Continue
       </button>
@@ -28,36 +28,36 @@ const CourseCardSkeleton = () => {
 
 const XPPointsSkeleton = () => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow animate-pulse">
-      <h3 className="text-lg font-semibold">XP Points</h3>
-      <p className="text-purple-500 text-2xl">2400 XP</p>
+    <div className="bg-gray-700 p-4 rounded-lg shadow animate-pulse">
+      <h3 className="text-lg font-semibold text-white">XP Points</h3>
+      <p className="text-purple-300 text-2xl">2400 XP</p>
     </div>
   );
 };
 
 const AchievementsSkeleton = () => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow animate-pulse">
-      <h3 className="text-lg font-semibold">Achievements</h3>
-      <p className="text-gray-500">24 Badges</p>
+    <div className="bg-gray-700 p-4 rounded-lg shadow animate-pulse">
+      <h3 className="text-lg font-semibold text-white">Achievements</h3>
+      <p className="text-gray-300">24 Badges</p>
     </div>
   );
 };
 
 const LearningActivityChartSkeleton = () => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow animate-pulse">
-      <h3 className="text-lg font-semibold mb-4">Learning Activity</h3>
-      <div className="h-64 bg-gray-300 rounded"></div>
+    <div className="bg-gray-700 p-4 rounded-lg shadow animate-pulse">
+      <h3 className="text-lg font-semibold text-white mb-4">Learning Activity</h3>
+      <div className="h-64 bg-gray-500 rounded"></div>
     </div>
   );
 };
 
 const YourClassSkeleton = () => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow animate-pulse">
-      <h3 className="text-lg font-semibold">Microprocessor Theory</h3>
-      <p className="text-gray-500">Today at 10:00 AM</p>
+    <div className="bg-gray-700 p-4 rounded-lg shadow animate-pulse">
+      <h3 className="text-lg font-semibold text-white">Microprocessor Theory</h3>
+      <p className="text-gray-300">Today at 10:00 AM</p>
       <button className="mt-2 px-4 py-2 bg-green-500 text-white rounded opacity-0">
         Join Class
       </button>
@@ -88,8 +88,6 @@ const HomeStudent = () => {
         }
       );
 
-      console.log("Profile Dashboard Response:", response.data.content);
-
       const { courses, XPPoints, achievements } = response.data.content;
 
       setCourses(courses);
@@ -100,7 +98,6 @@ const HomeStudent = () => {
     }
   };
 
-  // Sample data for learning activity chart
   const data = [
     { name: "Mon", Hours: 4 },
     { name: "Tue", Hours: 3 },
@@ -113,11 +110,11 @@ const HomeStudent = () => {
 
   return (
     <div
-      className="min-h-screen bg-gray-100 p-6"
-      style={{
-        backgroundImage:
-          "linear-gradient(to left, #FFFFFF, #D9F0FF 50%, #FFFFFF)",
-      }}
+      className="min-h-screen bg-gray-900 text-white p-6"
+      // style={{
+      //   backgroundImage:
+      //     "linear-gradient(to left, #2D2D2D, #1E1E1E 50%, #2D2D2D)",
+      // }}
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
@@ -143,16 +140,19 @@ const HomeStudent = () => {
               courses.slice(0, 2).map((course) => (
                 <div
                   key={course.courseId}
-                  className="bg-white p-4 rounded-lg shadow"
+                  className="bg-gray-800 p-4 rounded-lg shadow"
                 >
+
                   <h3 className="text-lg font-semibold">{course.title}</h3>
-                  <p className="text-gray-500">{course.rating} Rating</p>
+                  <p className="text-gray-300">{course.rating} Rating</p>
+                  <br />
                   <button
                     className="mt-2 px-4 py-2 bg-green-500 text-white rounded"
                     onClick={() => nav("/student/my-courses")}
                   >
                     Continue
                   </button>
+
                 </div>
               ))
             ) : (
@@ -166,37 +166,36 @@ const HomeStudent = () => {
 
         {/* Stats and Learning Activity */}
         <div className="grid grid-cols-3 gap-4 mb-6">
-          {/* Stats and Achievements */}
           <div className="col-span-1">
             {XPPoints ? (
-              <div className="bg-white p-4 rounded-lg shadow mb-4">
+              <div className="bg-gray-800 p-4 rounded-lg shadow mb-4">
                 <h3 className="text-lg font-semibold">XP Points</h3>
-                <p className="text-purple-500 text-2xl">{XPPoints} XP</p>
+                <p className="text-purple-300 text-2xl">{XPPoints} XP</p>
               </div>
             ) : (
               <XPPointsSkeleton />
             )}
+            <br />
             {achievements ? (
-              <div className="bg-white p-4 rounded-lg shadow">
+              <div className="bg-gray-800 p-4 rounded-lg shadow">
                 <h3 className="text-lg font-semibold">Achievements</h3>
-                <p className="text-gray-500">{achievements} Badges</p>
+                <p className="text-gray-300">{achievements} Badges</p>
               </div>
             ) : (
               <AchievementsSkeleton />
             )}
           </div>
 
-          {/* Learning Activity Chart */}
           <div className="col-span-2">
             {data ? (
-              <div className="bg-white p-4 rounded-lg shadow">
+              <div className="bg-gray-800 p-4 rounded-lg shadow">
                 <h3 className="text-lg font-semibold mb-4">Learning Activity</h3>
                 <ResponsiveContainer width="100%" height={200}>
                   <LineChart data={data}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                    <XAxis dataKey="name" stroke="#fff" />
+                    <YAxis stroke="#fff" />
+                    <Tooltip contentStyle={{ backgroundColor: "#333" }} />
                     <Legend />
                     <Line
                       type="monotone"
@@ -213,15 +212,14 @@ const HomeStudent = () => {
           </div>
         </div>
 
-        {/* Your Class */}
         <div>
           <h2 className="text-xl font-semibold mb-4">Your Class</h2>
           {courses.length > 0 ? (
-            <div className="bg-white p-4 rounded-lg shadow">
+            <div className="bg-gray-800 p-4 rounded-lg shadow">
               <h3 className="text-lg font-semibold">
-                {courses[0].title} {/* Assuming first course */}
+                {courses[0].title}
               </h3>
-              <p className="text-gray-500">Today at 10:00 AM</p>
+              <p className="text-gray-300">Today at 10:00 AM</p>
               <button className="mt-2 px-4 py-2 bg-green-500 text-white rounded">
                 Join Class
               </button>

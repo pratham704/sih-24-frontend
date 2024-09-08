@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+const sidebarData = [
+  { label: "Welcome", route: "/student/dashboard" },
+  { label: "Home", route: "/student/home" },
+  { label: "Practice mode", route: "/student/code-editor" },
+  { label: "My courses", route: "/student/my-courses" },
+  { label: "Explore courses", route: "/student/explore-courses" },
+  { label: "Forum", route: "/forum" },
+];
+
 export default function Sidebar() {
-
-
-
   const nav = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isScrollTopVisible, setIsScrollTopVisible] = useState(false);
@@ -82,78 +88,40 @@ export default function Sidebar() {
               zIndex: "101",
             }}
           >
-            <li
+            {sidebarData.map(({ label, route }, index) => (
+              <li key={index} style={{ marginBottom: "20px", cursor: "pointer" }}>
+                <div
+                  style={divStyles}
+                  onClick={() => {nav(route)
+                    toggleSidebar()
+                  }}
+                >
+                  <h3 style={{ color: "#fff" }}>{label}</h3>
+                </div>
+              </li>
+            ))}
+            <div
               style={{
-                marginBottom: "20px",
-                cursor: "pointer",
+                backgroundColor: "rgb(232 51 86 / 68%)",
+                padding: "10px 20px",
+                borderRadius: "8px",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                position: "absolute",
+                bottom: "2rem",
+                right: "1rem",
+                width: "90%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
-              onClick={toggleSidebar}
+              onClick={() => {
+                localStorage.removeItem("stdToken");
+                nav('/');
+              }}
             >
-              <div
-                style={divStyles}
-                onClick={() => nav("/student/home")}
-              >
-                <h3 style={{ color: "#fff" }}>Home</h3>
-              </div>
-              <br />
-              <div
-                style={divStyles}
-                onClick={() => nav("/student/code-editor")}
-              >
-                <h3 style={{ color: "#fff" }}>Practice mode</h3>
-              </div>
-
-
-              <br />
-              <div
-                style={divStyles}
-                onClick={() => nav("/student/my-courses")}
-              >
-                <h3 style={{ color: "#fff" }}>My courses</h3>
-              </div>
-           
-              <br />
-              <div
-                style={divStyles}
-                onClick={() => nav("/student/explore-courses")}
-              >
-                <h3 style={{ color: "#fff" }}>Explore courses</h3>
-              </div>
-
-              <br />
-
-              <div
-                style={divStyles}
-                onClick={() => nav("/forum")}
-              >
-                <h3 style={{ color: "#fff" }}>Forum</h3>
-              </div>
-              <div
-                style={{
-                  backgroundColor: "rgb(232 51 86 / 68%)",
-                  padding: "10px 20px",
-                  borderRadius: "8px",
-                  boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                  position: "absolute",
-                  bottom: "2rem",
-                  right: "1rem",
-                  width: "90%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                onClick={()=>{
-
-                  localStorage.removeItem("stdToken")
-
-                  nav('/')
-
-                }}
-              >
-                <h3 style={{ color: "#fff" }}>Logout</h3>
-              </div>
-              <br />
-            </li>
+              <h3 style={{ color: "#fff" }}>Logout</h3>
+            </div>
+            <br />
           </ul>
         </div>
       </div>
@@ -206,7 +174,6 @@ export default function Sidebar() {
         </div>
         <div style={{ flex: "1", textAlign: "right" }}>
           <button
-            // onClick={handleLogout}
             style={{
               background:
                 "linear-gradient(330deg, rgb(65, 64, 84) 0%, rgb(255 0 0))",
@@ -220,13 +187,9 @@ export default function Sidebar() {
               opacity: "0.9",
               fontSize: "14px",
             }}
-
-            onClick={()=>{
-
-              localStorage.removeItem("stdToken")
-
-              nav('/')
-
+            onClick={() => {
+              localStorage.removeItem("stdToken");
+              nav('/');
             }}
           >
             Logout

@@ -9,14 +9,13 @@ import {
   FaMinus,
   FaPlus,
 } from "react-icons/fa";
-import Instructor from "./components/Instructor";
+// import Instructor from "./components/Instructor";
 import { useParams } from "react-router-dom";
 import { courses } from "../../../../utils/data/courses.data";
 import { sections } from "../../../../utils/data/section.data";
 import Webcam from "react-webcam";
 import axios from "axios";
 import { Toast } from "primereact/toast";
-import { Button } from "primereact/button";
 
 const SingleCourse = () => {
   const toastTopCenter = useRef(null);
@@ -190,7 +189,7 @@ const SingleCourse = () => {
         </div>
       </div>
       <br />
-      <Instructor />
+      {/* <Instructor /> */}
       <br />
       <br />
     </div>
