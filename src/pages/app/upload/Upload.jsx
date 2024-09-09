@@ -66,13 +66,13 @@ const Upload = () => {
       const responseData = await response.json();
       console.log("File uploaded successfully:", responseData.text);
 
-      const postResponse = await fetch(`${lamma}/summary`, {
+      const postResponse = await fetch(`https://17a6-210-212-207-2.ngrok-free.app/v1/chat/generate-content`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          content: responseData.text,
+          data: responseData.text,
 
         }),
       });

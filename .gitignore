@@ -12,7 +12,6 @@
 .env.test.local
 .env.production.local
 
-# IDE files
 *.iml
 *.idea
 
