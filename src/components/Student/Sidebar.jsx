@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const sidebarData = [
-  { label: "Welcome", route: "/student/dashboard" },
+  { label: "Welcome", route: "/student/welcome" },
   { label: "Home", route: "/student/home" },
-  { label: "Practice mode", route: "/student/code-editor" },
-  { label: "My courses", route: "/student/my-courses" },
-  { label: "Explore courses", route: "/student/explore-courses" },
+  // { label: "Practice mode", route: "/student/code-editor" },
+  // { label: "My courses", route: "/student/my-courses" },
+  // { label: "Explore courses", route: "/student/explore-courses" },
   { label: "Forum", route: "/forum" },
 ];
 

@@ -12,14 +12,14 @@ import "primeicons/primeicons.css";
 //pages import
 import Forum from "../pages/app/Forum/Forum";
 import Sidebar from "../components/Student/Sidebar";
-import Dashboard from "../pages/app/dashboard/Dashboard";
+import Welcome from "../pages/app/dashboard/Welcome";
 import CodeEditor from "../pages/app/Editor/CodeEditor";
 import Certificate from "../pages/app/certifications/Certificate";
 import LandingPage from "../pages/app/starter/LandingPage";
-import ExploreCourses from "../pages/app/Learner/courses/ExploreCourses";
-import CourseDetails from "../pages/app/Learner/courses/CourseDetails";
-import MyCourses from "../pages/app/Learner/courses/MyCourses";
-import SingleCourse from "../pages/app/Learner/courses/SingleCourse";
+// import ExploreCourses from "../pages/app/Learner/courses/ExploreCourses";
+// import CourseDetails from "../pages/app/Learner/courses/CourseDetails";
+// import MyCourses from "../pages/app/Learner/courses/MyCourses";
+// import SingleCourse from "../pages/app/Learner/courses/SingleCourse";
 import Register from "../pages/app/(auth)/Learner/Register";
 import Login from "../pages/app/(auth)/Learner/Login";
 import HomeStudent from "../pages/app/Learner/HomeStudent";
@@ -28,6 +28,7 @@ import Proctor from "../Proctor/Proctor";
 import NotFound from "../components/NotFound/NotFound";
 import NoPerson from "../Proctor/NoPerson";
 import Eye from "../Proctor/Eye";
+import Upload from "../pages/app/upload/Upload";
 
 import SIngleThread from "../pages/app/Forum/SIngleThread";
 const PublicRoute = () => {
@@ -51,15 +52,25 @@ const PublicRoute = () => {
           />
           <Route
             exact
-            path="/student/dashboard"
+            path="/student/Welcome"
             element={
               <>
                 <Sidebar />
-                <Dashboard />
+                <Welcome />
+              </>
+            }
+          />     
+               <Route
+            exact
+            path="/student/upload"
+            element={
+              <>
+                <Sidebar />
+                <Upload />
               </>
             }
           />
-          <Route
+          {/* <Route
             exact
             path="/student/code-editor"
             element={
@@ -68,8 +79,8 @@ const PublicRoute = () => {
                 <CodeEditor />
               </>
             }
-          />
-          <Route
+          /> */}
+          {/* <Route
             exact
             path="/student/certificate"
             element={
@@ -78,8 +89,8 @@ const PublicRoute = () => {
                 <Certificate />
               </>
             }
-          />
-          <Route
+          /> */}
+          {/* <Route
             exact
             path="/student/explore-courses"
             element={
@@ -88,8 +99,8 @@ const PublicRoute = () => {
                 <ExploreCourses />
               </>
             }
-          />
-          <Route
+          /> */}
+          {/* <Route
             exact
             path="/student/explore-courses/:id"
             element={
@@ -98,8 +109,8 @@ const PublicRoute = () => {
                 <CourseDetails />
               </>
             }
-          />
-          <Route
+          /> */}
+          {/* <Route
             exact
             path="/student/my-courses"
             element={
@@ -108,8 +119,8 @@ const PublicRoute = () => {
                 <MyCourses />
               </>
             }
-          />
-          <Route
+          /> */}
+          {/* <Route
             exact
             path="/student/my-courses/:myCourseId"
             element={
@@ -118,7 +129,7 @@ const PublicRoute = () => {
                 <SingleCourse />
               </>
             }
-          />
+          /> */}
           <Route
             exact
             path="/student/home"

@@ -77,7 +77,7 @@ export default function Login() {
       console.log(response.status);
       if (data.success) {
         localStorage.setItem("stdToken", data.content.token);
-        nav("/student/dashboard");
+        nav("/student/welcome");
       }
 
       if (response.status === 400) {
@@ -186,7 +186,11 @@ export default function Login() {
                 </div>
 
                 <button
-                  onClick={HandleSignin}
+                  // onClick={HandleSignin}
+                  // /student/dashboard
+
+                  onClick={()=>nav('/student/welcome')}
+
                   className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 shadow-md hover:shadow-lg w-full"
                 >
                   Sign In

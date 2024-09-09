@@ -11,16 +11,16 @@ import Courses from "./Layouts/Courses";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const HomeHero = () => {
+const Welcome = () => {
   const nav = useNavigate();
 
-  useEffect(() => {
-    const stdToken = localStorage.getItem("stdToken");
+  // useEffect(() => {
+  //   const stdToken = localStorage.getItem("stdToken");
 
-    if (!stdToken) {
-      nav("/");
-    }
-  }, []);
+  //   if (!stdToken) {
+  //     nav("/");
+  //   }
+  // }, []);
   
   return (
     <>
@@ -149,7 +149,7 @@ const HomeHero = () => {
                       smooth={true}
                       offset={0}
                       duration={350}
-                      onClick={() => nav("/student/home")}
+                      onClick={() => nav("/student/upload")}
                     >
                       <StyledButton
                         color="primary"
@@ -248,4 +248,4 @@ const HomeHero = () => {
   );
 };
 
-export default HomeHero;
+export default Welcome;
