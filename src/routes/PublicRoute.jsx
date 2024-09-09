@@ -31,6 +31,7 @@ import Eye from "../Proctor/Eye";
 import Upload from "../pages/app/upload/Upload";
 
 import SIngleThread from "../pages/app/Forum/SIngleThread";
+import Questions from "../pages/app/Questionare/Questions";
 const PublicRoute = () => {
   return (
     <PrimeReactProvider>
@@ -59,14 +60,25 @@ const PublicRoute = () => {
                 <Welcome />
               </>
             }
-          />     
-               <Route
+          />
+          <Route
             exact
             path="/student/upload"
             element={
               <>
                 <Sidebar />
                 <Upload />
+              </>
+            }
+          />
+
+          <Route
+            exact
+            path="/student/questions"
+            element={
+              <>
+                <Sidebar />
+                <Questions />
               </>
             }
           />

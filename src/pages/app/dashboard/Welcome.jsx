@@ -8,20 +8,11 @@ import { Link as ScrollLink } from "react-scroll";
 import StyledButton from "./module/StyledButton";
 import HomeFeature from "./Layouts/HomeFeatures";
 import Courses from "./Layouts/Courses";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Welcome = () => {
   const nav = useNavigate();
 
-  // useEffect(() => {
-  //   const stdToken = localStorage.getItem("stdToken");
-
-  //   if (!stdToken) {
-  //     nav("/");
-  //   }
-  // }, []);
-  
   return (
     <>
       <motion.div
@@ -39,7 +30,6 @@ const Welcome = () => {
           style={{
             paddingTop: "4rem",
           }}
-
           className="w-full py-12 md:py-24 lg:py-32 bg-gray-900 text-white"
         >
           <Container maxWidth="lg">
@@ -80,7 +70,7 @@ const Welcome = () => {
                           backgroundColor: "unset",
                         }}
                       >
-                        Improve{" "}
+                        Streamline{" "}
                         <Box
                           sx={{
                             position: "absolute",
@@ -113,7 +103,7 @@ const Welcome = () => {
                           },
                         }}
                       >
-                        Skill
+                        Interview Process
                         <svg version="1.1" viewBox="0 0 3183 3072">
                           <g id="Layer_x0020_1">
                             <path
@@ -132,13 +122,13 @@ const Welcome = () => {
                         </svg>
                       </Typography>{" "}
                       <br />
-                      with a Different Way
+                      with Live Evaluations
                     </Typography>
                   </Box>
                   <Box sx={{ mb: 4, width: { xs: "100%", md: "70%" } }}>
                     <Typography sx={{ color: "#b0bec5", lineHeight: 1.6 }}>
                       {
-                        "Take an online course to improve your skills. Set your own study time and absorb material easily."
+                        "Enhance the interview process with a boardroom-like experience, offering unbiased, objective evaluations. Match questions with expertise and grade responses to assess suitability for the role."
                       }
                     </Typography>
                   </Box>
@@ -214,13 +204,13 @@ const Welcome = () => {
                         mb: 0.5,
                       }}
                     >
-                      Certificate
+                      Real-time Scoring
                     </Typography>
                     <Typography
                       variant="subtitle1"
                       sx={{ color: "#b0bec5", lineHeight: 1.3 }}
                     >
-                      Certificates available for all courses.
+                      Automatically grade the relevance of questions and responses.
                     </Typography>
                   </Box>
                 </Box>

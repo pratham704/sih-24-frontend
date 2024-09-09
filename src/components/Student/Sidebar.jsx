@@ -8,6 +8,8 @@ const sidebarData = [
   // { label: "My courses", route: "/student/my-courses" },
   // { label: "Explore courses", route: "/student/explore-courses" },
   { label: "Forum", route: "/forum" },
+  { label: "Question", route: "/student/questions" },
+  
 ];
 
 export default function Sidebar() {

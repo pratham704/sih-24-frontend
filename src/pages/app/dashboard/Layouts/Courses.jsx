@@ -1,51 +1,51 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faCode, faBrush, faClock, faBriefcase, faLightbulb, faPalette } from '@fortawesome/free-solid-svg-icons';
+import { faChalkboardTeacher, faLaptopCode, faBriefcase, faClipboardCheck, faLightbulb, faUserGraduate } from '@fortawesome/free-solid-svg-icons';
 
 // Define course data as an array of objects
 const courses = [
   {
-    icon: faBook,
-    category: "Business",
-    title: "Introduction to Marketing",
-    description: "Explore the fundamentals of marketing and learn effective strategies to promote your business.",
+    icon: faLaptopCode,
+    category: "Technology",
+    title: "Web Development Opportunities",
+    description: "Explore current job openings in web development and learn the skills needed to succeed in this role.",
     duration: "12 hrs",
   },
   {
-    icon: faCode,
-    category: "Technology",
-    title: "Web Development Fundamentals",
-    description: "Learn the essential skills to build modern, responsive websites from scratch.",
-    duration: "24 hrs",
-  },
-  {
-    icon: faBrush,
-    category: "Creative",
-    title: "Graphic Design Essentials",
-    description: "Unlock your creative potential and learn the fundamentals of graphic design.",
-    duration: "18 hrs",
-  },
-  {
     icon: faBriefcase,
-    category: "Business",
-    title: "Entrepreneurship Essentials",
-    description: "Gain the knowledge and skills to turn your business idea into a successful venture.",
-    duration: "20 hrs",
-  },
-  {
-    icon: faLightbulb,
-    category: "Personal Development",
-    title: "Mindfulness and Meditation",
-    description: "Discover the transformative power of mindfulness and learn effective meditation techniques.",
+    category: "Career Development",
+    title: "Preparing for Tech Interviews",
+    description: "Master the techniques to ace technical interviews and secure your desired position in the tech industry.",
     duration: "15 hrs",
   },
   {
-    icon: faPalette,
-    category: "Creative",
-    title: "Photography Fundamentals",
-    description: "Unlock your creative potential and learn the art of photography.",
-    duration: "22 hrs",
+    icon: faChalkboardTeacher,
+    category: "Interview Skills",
+    title: "Interviewing for Senior Roles",
+    description: "Understand the nuances of interviewing for senior positions and how to present your managerial expertise.",
+    duration: "8 hrs",
+  },
+  {
+    icon: faUserGraduate,
+    category: "Personal Development",
+    title: "Enhancing Soft Skills",
+    description: "Develop communication and leadership skills to complement your technical abilities and excel in interviews.",
+    duration: "10 hrs",
+  },
+  {
+    icon: faClipboardCheck,
+    category: "Assessment",
+    title: "Mock Interviews and Feedback",
+    description: "Participate in mock interviews with detailed feedback to improve your performance in real-world scenarios.",
+    duration: "12 hrs",
+  },
+  {
+    icon: faLightbulb,
+    category: "Tech Innovation",
+    title: "Latest Trends in Technology",
+    description: "Stay updated with the latest trends and innovations in the tech world to boost your career prospects.",
+    duration: "20 hrs",
   },
 ];
 
@@ -56,10 +56,10 @@ export default function Courses() {
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-              Explore Our Diverse Course Offerings
+              Explore Our Job-Oriented Courses
             </h2>
             <p className="max-w-[900px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              From business and technology to personal development and creative arts, our online courses cater to a wide range of interests and skill levels.
+              From web development to career growth and interview skills, our tailored courses help you prepare for exciting job opportunities.
             </p>
           </div>
         </div>
@@ -76,14 +76,14 @@ export default function Courses() {
               <p>{course.description}</p>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <FontAwesomeIcon icon={faClock} className="h-4 w-4 text-gray-400" />
+                  <FontAwesomeIcon icon={faClipboardCheck} className="h-4 w-4 text-gray-400" />
                   <span className="text-sm text-gray-400">{course.duration}</span>
                 </div>
                 <Link
                   to="#"
                   className="inline-flex h-8 items-center justify-center rounded-md bg-blue-500 px-4 text-sm font-medium text-white shadow transition-colors hover:bg-blue-400"
                 >
-                  Enroll
+                  Apply Now
                 </Link>
               </div>
             </div>

@@ -1,0 +1,1 @@
+export const lamma = "http://localhost:5000/v1/chat"

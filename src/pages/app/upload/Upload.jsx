@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 import File from "./File";
-// import SkeletonLoader from "./SkeletonLoader";  // Import SkeletonLoader
+import { lamma } from "../../../api/Lamma";
 import SkeletonLoader from "../../../components/Skleton/SkletonUpload";
+import ResumeDetails from "./ResumeDetails"; // Import the new ResumeDetails component
+
 const Upload = () => {
   const [formData, setFormData] = useState({
     collegeName: "",
@@ -15,9 +17,9 @@ const Upload = () => {
   });
 
   const [uploadedFiles, setUploadedFiles] = useState([]);
-  const [loading, setLoading] = useState(false);  // Manage loading state
+  const [loading, setLoading] = useState(false); 
+  const [resumeData, setResumeData] = useState(null); // State to store extracted details
 
-  // Check if all fields are filled and files are uploaded
   const isFormValid = () => {
     const allFieldsFilled = Object.values(formData).every(
       (value) => value.trim() !== ""
@@ -40,41 +42,60 @@ const Upload = () => {
   const handleSubmit = async () => {
     if (!isFormValid()) return;
 
-    setLoading(true);  // Start loading
+    setLoading(true);
 
     const formDataToSend = new FormData();
-    
-    // Append form fields to the FormData object
+
     for (const key in formData) {
       formDataToSend.append(key, formData[key]);
     }
-    
-    // Append the first file to the FormData object
+
     if (uploadedFiles.length > 0) {
-      formDataToSend.append('file', uploadedFiles[0]);
+      formDataToSend.append("file", uploadedFiles[0]);
     }
 
     try {
-      const response = await fetch("https://dynamic-pdf-8oh8.onrender.com/upload", {
-        method: "POST",
-        body: formDataToSend,
-      });
+      const response = await fetch(
+        "https://dynamic-pdf-8oh8.onrender.com/upload",
+        {
+          method: "POST",
+          body: formDataToSend,
+        }
+      );
 
       const responseData = await response.json();
-      console.log('File uploaded successfully:', responseData);
+      console.log("File uploaded successfully:", responseData.text);
+
+      const postResponse = await fetch(`${lamma}/summary`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: responseData.text,
+
+        }),
+      });
+      const postResponseData = await postResponse.json();
+      console.log("Data sent successfully:", postResponseData);
+
+      // Extract details and update resumeData state
+      const details = JSON.parse(postResponseData.content.match(/```(.*?)```/s)[1]);
+      setResumeData(details);
 
     } catch (error) {
-      console.error('Error uploading file:', error);
-      alert('Error uploading file. Please try again.');
+      alert("Error uploading file or sending data. Please try again.");
     } finally {
-      setLoading(false);  // End loading
+      setLoading(false);
     }
   };
 
   return (
     <div className="bg-gray-900 min-h-screen flex items-center justify-center">
       {loading ? (
-        <SkeletonLoader />  // Show skeleton loader when loading
+        <SkeletonLoader />
+      ) : resumeData ? ( // Conditionally show ResumeDetails if data is available
+        <ResumeDetails details={resumeData} />
       ) : (
         <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-4xl">
           <h1 className="text-3xl font-bold text-white mb-8 text-center">
