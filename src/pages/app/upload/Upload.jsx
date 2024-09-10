@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 import File from "./File";
-import { lamma } from "../../../api/Lamma";
 import SkeletonLoader from "../../../components/Skleton/SkletonUpload";
 import ResumeDetails from "./ResumeDetails"; // Import the new ResumeDetails component
-
+import { resumeGemini } from "../../../api/Gemini";
+import { Pdfscrapper } from "../../../api/Scraper";
 const Upload = () => {
   const [formData, setFormData] = useState({
     collegeName: "",
@@ -56,7 +56,7 @@ const Upload = () => {
 
     try {
       const response = await fetch(
-        "https://dynamic-pdf-8oh8.onrender.com/upload",
+        `${Pdfscrapper}/upload`,
         {
           method: "POST",
           body: formDataToSend,
@@ -66,22 +66,19 @@ const Upload = () => {
       const responseData = await response.json();
       console.log("File uploaded successfully:", responseData.text);
 
-      const postResponse = await fetch(`https://17a6-210-212-207-2.ngrok-free.app/v1/chat/generate-content`, {
+      const postResponse = await fetch(`${resumeGemini}/generate-content`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+            "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          data: responseData.text,
-
+            data: "The user will give you a scrapped resume and you'll need to provide the details in the following format\n Name: {candidate_name_in_the_resume}, Address: {candidate_address}, Email: {candidate_email}, Phone: {candidate_phone}.\nThe response should be in json.", // Replace with actual pre-prompt data
+            text: responseData.text // Ensure this matches the backend's expected field names
         }),
-      });
+    });
       const postResponseData = await postResponse.json();
       console.log("Data sent successfully:", postResponseData);
-
-      // Extract details and update resumeData state
-      const details = JSON.parse(postResponseData.content.match(/```(.*?)```/s)[1]);
-      setResumeData(details);
+      setResumeData(postResponseData);
 
     } catch (error) {
       alert("Error uploading file or sending data. Please try again.");

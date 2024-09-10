@@ -32,6 +32,7 @@ import Upload from "../pages/app/upload/Upload";
 
 import SIngleThread from "../pages/app/Forum/SIngleThread";
 import Questions from "../pages/app/Questionare/Questions";
+import Screening from "../pages/app/Questionare/Screening";
 const PublicRoute = () => {
   return (
     <PrimeReactProvider>
@@ -79,6 +80,17 @@ const PublicRoute = () => {
               <>
                 <Sidebar />
                 <Questions />
+              </>
+            }
+          />
+
+          <Route
+            exact
+            path="/student/screening"
+            element={
+              <>
+                <Sidebar />
+                <Screening />
               </>
             }
           />

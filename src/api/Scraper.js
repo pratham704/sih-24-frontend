@@ -1,0 +1,1 @@
+export const Pdfscrapper = "https://dynamic-pdf-8oh8.onrender.com"

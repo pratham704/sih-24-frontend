@@ -7,8 +7,8 @@ const sidebarData = [
   // { label: "Practice mode", route: "/student/code-editor" },
   // { label: "My courses", route: "/student/my-courses" },
   // { label: "Explore courses", route: "/student/explore-courses" },
+  { label: "Question", route: "/student/screening" },
   { label: "Forum", route: "/forum" },
-  { label: "Question", route: "/student/questions" },
   
 ];
 
