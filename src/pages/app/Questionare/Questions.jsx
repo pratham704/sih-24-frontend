@@ -39,8 +39,8 @@ const Questions = () => {
     const post = "Web Developer";
     const jobDescription =
       "Responsible for designing, coding, and modifying websites, from layout to function according to the client's specifications. Create visually appealing sites that feature user-friendly design and clear navigation.";
-    const apiKey = "AIzaSyC-zF-VYDMtN6i7Y3MiRodQ8DDJV8zCn64"; // Replace with your actual API key
-    try {
+      const apiKey = process.env.REACT_APP_GEMINI_KEY;
+      try {
       const extractedQuestions = await fetchQuestions(
         apiKey,
         post,
@@ -186,7 +186,7 @@ const Questions = () => {
   };
   
   const evaluateAnswer = async (question, answer) => {
-    const apiKey = "AIzaSyC-zF-VYDMtN6i7Y3MiRodQ8DDJV8zCn64"; // Replace with your actual API key
+    const apiKey = process.env.REACT_APP_GEMINI_KEY;
     const url = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`;
 
     const requestBody = {

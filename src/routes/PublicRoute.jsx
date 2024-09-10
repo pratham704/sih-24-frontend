@@ -34,6 +34,7 @@ import SIngleThread from "../pages/app/Forum/SIngleThread";
 import Questions from "../pages/app/Questionare/Questions";
 import Screening from "../pages/app/Questionare/Screening";
 import ScoreSummary from "../pages/app/Questionare/ScoreSummary";
+import Recruiter from "../pages/app/recruiter/Recruiter";
 const PublicRoute = () => {
   return (
     <PrimeReactProvider>
@@ -60,6 +61,16 @@ const PublicRoute = () => {
               <>
                 <Sidebar />
                 <Welcome />
+              </>
+            }
+          />
+
+          <Route
+            exact
+            path="/recruiter"
+            element={
+              <>
+                <Recruiter />
               </>
             }
           />

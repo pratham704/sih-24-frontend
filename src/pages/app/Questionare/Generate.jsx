@@ -29,7 +29,9 @@ const Generate = () => {
     // Send the POST request to the API
     const generateQuestions = async () => {
       try {
-        const apiKey = 'AIzaSyC-zF-VYDMtN6i7Y3MiRodQ8DDJV8zCn64'; // Replace with your actual API key
+        const apiKey = process.env.REACT_APP_GEMINI_KEY;
+        console.log("APi key " , apiKey)
+        
         const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`, {
           method: 'POST',
           headers: {

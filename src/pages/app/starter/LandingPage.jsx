@@ -28,7 +28,7 @@ export default function LandingPage() {
           justifyContent: "center",
           alignItems: "center",
           backgroundImage:
-            "url(https://media.istockphoto.com/id/1347616560/photo/a-view-of-the-fa%C3%A7ades-of-royce-hall-and-haines-hall-at-university-of-california-los-angeles.jpg?s=612x612&w=0&k=20&c=4vosGBb4ozEBntNcp0cQvk5rNuM_8wYbredw06rchlc=)",
+            "url(https://i.ibb.co/Qf9fNsB/Premium-Vector-A-trip-to-the-mountains-by-car-on-a-warm-summer-evening.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           position: "relative",
@@ -70,7 +70,7 @@ export default function LandingPage() {
               lineHeight: "1.2",
             }}
           >
-            Welcome to Our Platform
+            Hiring Made Easy Careers Made Great Shreshth{" "}
           </h1>
           <p
             style={{
@@ -79,9 +79,10 @@ export default function LandingPage() {
               lineHeight: "1.6",
             }}
           >
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima
-            eaque culpa rem, ex quas optio maxime praesentium et, porro
-            voluptatum distinctio explicabo quos provident tempora dolor libero
+            Shreshth bridges the gap between exceptional talent and great
+            opportunities. Our platform makes job searching and hiring
+            straightforward and efficient. Find your ideal job or candidate with
+            ease on Shreshth."
           </p>
 
           <button

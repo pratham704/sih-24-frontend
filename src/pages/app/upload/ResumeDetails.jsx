@@ -1,21 +1,32 @@
-import React, { useState } from "react";
+import React, { useState  , useRef} from "react";
+import { useNavigate } from "react-router-dom";
+import { Toast } from 'primereact/toast';
 
 const ResumeDetails = ({ details, onProceed }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState(details);
+  const toast = useRef(null);
+
+  const nav = useNavigate()
 
   const handleChange = (e) => {
+
+
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSave = () => {
+  const handleSave = async() => {
     setIsEditing(false);
     // Save "Technologies" and "Education" to localStorage
     localStorage.setItem("Technologies", formData.Technologies);
     localStorage.setItem("Education", formData.Education);
+    toast.current.show({severity:'success', summary: 'Success', detail:'Saved Successfully', life: 3000});
 
-    // Here, you can add logic to save formData to a backend or state
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+
+    nav('/student/screening')
     console.log("Saved data:", formData);
   };
 
@@ -24,6 +35,11 @@ const ResumeDetails = ({ details, onProceed }) => {
       <h2 className="text-3xl font-bold mb-6 border-b pb-3 text-center uppercase tracking-wide text-gray-200">
         Resume Details
       </h2>
+
+
+      
+      <Toast ref={toast} />
+
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
         <div>
@@ -137,6 +153,7 @@ const ResumeDetails = ({ details, onProceed }) => {
         <button
           onClick={()=>{
             handleSave()
+            
           }}
           className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-6 rounded"
         >

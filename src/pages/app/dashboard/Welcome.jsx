@@ -122,7 +122,8 @@ const Welcome = () => {
                         </svg>
                       </Typography>{" "}
                       <br />
-                      with Live Evaluations
+                      with Live Evaluations 
+
                     </Typography>
                   </Box>
                   <Box sx={{ mb: 4, width: { xs: "100%", md: "70%" } }}>
