@@ -171,7 +171,7 @@ export default function Sidebar() {
               fontFamily: "Arial, sans-serif",
             }}
           >
-            Workflow
+            श्रेष्ठ
           </h1>
         </div>
         <div style={{ flex: "1", textAlign: "right" }}>

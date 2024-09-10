@@ -59,8 +59,13 @@ export default function Login() {
     if (!isValid) {
       return;
     }
-
     setisloading(true);
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+
+
+    nav('/student/welcome')
+
 
     try {
       const response = await fetch(`${baseUrl}/api/auth/login`, {
@@ -186,10 +191,10 @@ export default function Login() {
                 </div>
 
                 <button
-                  // onClick={HandleSignin}
+                  onClick={HandleSignin}
                   // /student/dashboard
 
-                  onClick={()=>nav('/student/welcome')}
+                  // onClick={()=>nav('/student/welcome')}
 
                   className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 shadow-md hover:shadow-lg w-full"
                 >

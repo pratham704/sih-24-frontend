@@ -15,6 +15,17 @@ const stepVariants = {
 };
 
 const Screening = () => {
+
+
+
+  useEffect(() => {
+    const education = localStorage.getItem("Education");
+    const technologies = localStorage.getItem("Technologies");
+
+    if (!education || !technologies) {
+      nav("/student/upload");
+    }
+  }, []);
   const nav = useNavigate();
   const [step, setStep] = useState(0);
   const [showFinalScreen, setShowFinalScreen] = useState(false);

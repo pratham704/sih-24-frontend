@@ -11,11 +11,11 @@ export default function LandingPage() {
     const instructToken = localStorage.getItem("instructToken");
 
     if (stdToken) {
-      navigate("/student/dashboard");
+      // navigate("/student/dashboard");
     }
 
     if (instructToken) {
-      navigate("/instructor/dashboard");
+      // navigate("/instructor/dashboard");
     }
   }, [navigate]);
 
@@ -107,7 +107,7 @@ export default function LandingPage() {
             }
             onMouseLeave={(e) => (e.target.style.transform = "translateY(0)")}
           >
-            Get Started for Students
+            Get Started
           </button>
         </div>
       </div>
