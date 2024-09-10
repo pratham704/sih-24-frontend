@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const Generate = ({ onResponse }) => {
+const Generate = () => {
+  const [response, setResponse] = useState(null);
+
   useEffect(() => {
+    // Retrieve data from localStorage
     const technologies = localStorage.getItem('Technologies');
     const education = localStorage.getItem('Education');
-
+    
+    // Define the post and job description
     const post = "Web Developer";
     const jobDescription = "Responsible for designing, coding, and modifying websites, from layout to function according to the client's specifications. Create visually appealing sites that feature user-friendly design and clear navigation.";
 
+    // Prepare the API request payload
     const payload = {
       contents: [
         {
@@ -21,6 +26,7 @@ const Generate = ({ onResponse }) => {
       ]
     };
 
+    // Send the POST request to the API
     const generateQuestions = async () => {
       try {
         const apiKey = 'AIzaSyC-zF-VYDMtN6i7Y3MiRodQ8DDJV8zCn64'; // Replace with your actual API key
@@ -34,9 +40,8 @@ const Generate = ({ onResponse }) => {
 
         if (response.ok) {
           const data = await response.json();
-          // Assume the response contains the questions in an array format
-          const generatedQuestions = data.questions || []; // Replace with the actual path to questions in response
-          onResponse(generatedQuestions); // Call the callback function with generated questions
+          setResponse(data);
+          console.log("Generated Questions:", data);
         } else {
           console.error("Failed to generate content:", response.statusText);
         }
@@ -46,9 +51,20 @@ const Generate = ({ onResponse }) => {
     };
 
     generateQuestions();
-  }, [onResponse]);
+  }, []);
 
-  return null; // Since this component does not render any visible content
+  return (
+    <div className="p-8 bg-gray-100 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-4">Generated Interview Questions</h2>
+      {response ? (
+        <div className="bg-white p-4 rounded shadow">
+          <pre className="whitespace-pre-wrap">{JSON.stringify(response, null, 2)}</pre>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
 };
 
 export default Generate;

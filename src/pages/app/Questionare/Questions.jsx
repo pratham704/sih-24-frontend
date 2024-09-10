@@ -1,12 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMicrophone, faArrowRight, faClock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMicrophone,
+  faArrowRight,
+  faClock,
+} from "@fortawesome/free-solid-svg-icons";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { fetchQuestions } from "./generateQuestions"; // Import the utility function
 import SkeletonLoader from "../../../components/Skleton/SkletonGenerateQuestions";
+import axios from 'axios';
+import { Toast } from 'primereact/toast';
+
 
 const Questions = () => {
   const handle = useFullScreenHandle();
+  const toast = useRef(null);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answer, setAnswer] = useState("");
@@ -20,24 +28,36 @@ const Questions = () => {
   const [loading, setLoading] = useState(true); // State to track loading status
 
   useEffect(() => {
-    const technologies = localStorage.getItem('Technologies');
-    const education = localStorage.getItem('Education');
-    const post = "Web Developer";
-    const jobDescription = "Responsible for designing, coding, and modifying websites, from layout to function according to the client's specifications. Create visually appealing sites that feature user-friendly design and clear navigation.";
-    const apiKey = 'AIzaSyC-zF-VYDMtN6i7Y3MiRodQ8DDJV8zCn64'; // Replace with your actual API key
-
-    const generateQuestions = async () => {
-      const extractedQuestions = await fetchQuestions(apiKey, post, jobDescription, technologies, education);
-      setQuestions(extractedQuestions);
-      setLoading(false); // Set loading to false once questions are fetched
-    };
-
     generateQuestions();
   }, []);
 
+  const generateQuestions = async () => {
+    const technologies = localStorage.getItem("Technologies");
+    const education = localStorage.getItem("Education");
+    const post = "Web Developer";
+    const jobDescription =
+      "Responsible for designing, coding, and modifying websites, from layout to function according to the client's specifications. Create visually appealing sites that feature user-friendly design and clear navigation.";
+    const apiKey = "AIzaSyC-zF-VYDMtN6i7Y3MiRodQ8DDJV8zCn64"; // Replace with your actual API key
+    try {
+      const extractedQuestions = await fetchQuestions(
+        apiKey,
+        post,
+        jobDescription,
+        technologies,
+        education
+      );
+      setQuestions(extractedQuestions);
+      setLoading(false); // Set loading to false once questions are fetched or an error occurs
+    } catch (error) {
+      console.error("Failed to fetch questions:", error);
+    } finally {
+    }
+  };
+
   useEffect(() => {
     if (isListening) {
-      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      const recognition = new (window.SpeechRecognition ||
+        window.webkitSpeechRecognition)();
       recognition.lang = "en-US";
       recognition.interimResults = true;
       recognition.maxAlternatives = 1;
@@ -102,8 +122,6 @@ const Questions = () => {
     }
   }, [timerRunning]);
 
-
-
   const handleVoiceInput = () => {
     setIsListening(true);
     setTimer(60); // Reset timer when starting voice input
@@ -124,10 +142,7 @@ const Questions = () => {
     setIsAnswerButtonDisabled(false); // Re-enable the button for the next question
   };
 
-
-
-
-  const handleNext = async() => {
+  const handleNext = async () => {
     let previousAnswers = [];
     for (let i = 0; i < currentQuestion; i++) {
       const savedAnswer = localStorage.getItem(`question${i + 1}`);
@@ -145,64 +160,147 @@ const Questions = () => {
     localStorage.setItem(`question${currentQuestion + 1}`, cleanedAnswer);
     const questionText = questions[currentQuestion]; // Current question text
     const score = await evaluateAnswer(questionText, cleanedAnswer);
-  
+
     if (score) {
       localStorage.setItem(`score${currentQuestion + 1}`, score); // Store the score
       // alert(`Your score for this question is: ${score}`);
-    } 
+    }
     setAllAnswers([...allAnswers, answer.trim()]);
     setAnswer(""); // Clear the answer state
     setInterimAnswer(""); // Clear interim answer state
     setCurrentQuestion((prevQuestion) => prevQuestion + 1); // Move to the next question
-    setTimer(60); 
-    setTimerRunning(true); 
+    setTimer(60);
+    setTimerRunning(true);
   };
 
-
-
   const evaluateAnswer = async (question, answer) => {
-    const apiKey = 'AIzaSyC-zF-VYDMtN6i7Y3MiRodQ8DDJV8zCn64'; // Replace with your actual API key
+    const apiKey = "AIzaSyC-zF-VYDMtN6i7Y3MiRodQ8DDJV8zCn64"; // Replace with your actual API key
     const url = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`;
-    
+
     const requestBody = {
       contents: [
         {
           role: "user",
           parts: [
             {
-              text: `For the question: "${question}", please evaluate the candidate's answer: "${answer}". Assign a score out of 10 based on how relevant and accurate the answer is to the question. Provide only the score, with no additional comments or explanations.`
-            }
-          ]
-        }
-      ]
+              text: `For the question: "${question}", please evaluate the candidate's answer: "${answer}". Assign a score out of 10 based on how relevant and accurate the answer is to the question. Provide only the score, with no additional comments or explanations.`,
+            },
+          ],
+        },
+      ],
     };
-    
+
     try {
       const response = await fetch(url, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(requestBody),
       });
-      
+
       if (!response.ok) {
-        throw new Error('Failed to fetch');
+        throw new Error("Failed to fetch");
       }
-      
+
       const data = await response.json();
       // Extract score from the response
-      const score = data.candidates[0]?.content?.parts[0]?.text || 'No score available';
+      const score =
+        data.candidates[0]?.content?.parts[0]?.text || "No score available";
       return score;
     } catch (error) {
-      console.error('Error evaluating answer:', error);
+      console.error("Error evaluating answer:", error);
       return null;
     }
   };
-  
+
+
+
+
+
+
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
+  const [capturing, setCapturing] = useState(false);
+  const [result, setResult] = useState(null);
+  const [intervalId, setIntervalId] = useState(null);
+
+  // Start the webcam stream
+  const startVideo = () => {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      })
+      .catch(err => {
+        console.error('Error accessing webcam:', err);
+      });
+  };
+
+  // Capture a frame from the video and send it to the API
+  const captureAndSend = async () => {
+    const canvas = canvasRef.current;
+    const video = videoRef.current;
+
+    if (canvas && video) {
+      const context = canvas.getContext('2d');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // Convert canvas image to base64
+      const base64Image = canvas.toDataURL('image/jpeg').split(',')[1];
+
+      try {
+        const response = await axios.post('http://localhost:5000/detect', {
+          image: base64Image,
+        });
+        console.log('API Response:', response); // Log the response
+        if (response.data.result > 1) {
+          toast.current.show({
+            severity: 'info',
+            summary: 'Please be alone',
+            detail: `${response.data.result} persons detected`,
+            life: 2000
+          });
+        }
+
+      } catch (error) {
+        console.error('Error sending image to API:', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    startVideo();
+
+    // Set up interval to capture and send image every 5 seconds
+    const id = setInterval(() => {
+      setCapturing(true);
+      captureAndSend().finally(() => setCapturing(false));
+    }, 5000);
+
+    setIntervalId(id);
+
+    // Cleanup on component unmount
+    return () => {
+      clearInterval(id);
+      const stream = videoRef.current?.srcObject;
+      if (stream) {
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
+      }
+    };
+  }, []);
+
+
   return (
+    <>
     <div className="relative bg-gradient-to-br from-gray-800 via-gray-900 to-black text-white min-h-screen flex flex-col justify-center items-center p-6">
       {/* Timer Component */}
+      <Toast ref={toast} />
+
       {timerRunning && <Timer time={timer} />}
 
       {loading ? (
@@ -217,7 +315,9 @@ const Questions = () => {
               Question {currentQuestion + 1} of {questions.length}
             </span>
           </div>
-          <div className="text-2xl mb-6 font-semibold">{questions[currentQuestion]}</div>
+          <div className="text-2xl mb-6 font-semibold">
+            {questions[currentQuestion]}
+          </div>
 
           {/* Answer Buttons Section */}
           <div className="flex items-center mb-6 space-x-4">
@@ -226,12 +326,12 @@ const Questions = () => {
               disabled={isAnswerButtonDisabled}
               className={`flex items-center justify-center py-2 px-4 rounded-md text-white transition duration-300 ease-in-out ${
                 isAnswerButtonDisabled
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-purple-600 to-purple-400 hover:from-purple-500 hover:to-purple-300'
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-gradient-to-r from-purple-600 to-purple-400 hover:from-purple-500 hover:to-purple-300"
               }`}
             >
               <FontAwesomeIcon icon={faMicrophone} className="mr-2 text-lg" />
-              {isAnswerButtonDisabled ? 'Listening' : 'Answer'}
+              {isAnswerButtonDisabled ? "Listening" : "Answer"}
             </button>
           </div>
 
@@ -255,6 +355,27 @@ const Questions = () => {
         Remember, there are no wrong answers. Just give it your best shot.
       </p>
     </div>
+
+    <div style={{ }}>
+      <video 
+        ref={videoRef}
+        autoPlay
+        style={{ 
+
+        }}
+      ></video>
+      <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
+      <button onClick={captureAndSend} disabled={capturing}>
+        {capturing ? 'Capturing...' : 'Capture and Send'}
+      </button>
+      <div style={{ marginTop: '20px' }}>
+        {result !== null && (
+          <p>API Response: {result}</p>
+        )}
+      </div>
+    </div>
+
+</>
   );
 };
 
