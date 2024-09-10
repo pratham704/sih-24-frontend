@@ -11,6 +11,10 @@ const ResumeDetails = ({ details, onProceed }) => {
 
   const handleSave = () => {
     setIsEditing(false);
+    // Save "Technologies" and "Education" to localStorage
+    localStorage.setItem("Technologies", formData.Technologies);
+    localStorage.setItem("Education", formData.Education);
+
     // Here, you can add logic to save formData to a backend or state
     console.log("Saved data:", formData);
   };
@@ -131,7 +135,9 @@ const ResumeDetails = ({ details, onProceed }) => {
           </button>
         )}
         <button
-          onClick={onProceed}
+          onClick={()=>{
+            handleSave()
+          }}
           className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-6 rounded"
         >
           Proceed
