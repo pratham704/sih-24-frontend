@@ -10,11 +10,13 @@ import { fetchQuestions } from "./generateQuestions"; // Import the utility func
 import SkeletonLoader from "../../../components/Skleton/SkletonGenerateQuestions";
 import axios from 'axios';
 import { Toast } from 'primereact/toast';
+import { useNavigate } from 'react-router-dom';
 
 
 const Questions = () => {
   const handle = useFullScreenHandle();
   const toast = useRef(null);
+  const navigate = useNavigate();
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answer, setAnswer] = useState("");
@@ -150,29 +152,39 @@ const Questions = () => {
         previousAnswers.push(savedAnswer);
       }
     }
-
+  
     let cleanedAnswer = answer;
     previousAnswers.forEach((prevAns) => {
       const regex = new RegExp(prevAns, "g");
       cleanedAnswer = cleanedAnswer.replace(regex, "").trim();
     });
-
+  
     localStorage.setItem(`question${currentQuestion + 1}`, cleanedAnswer);
     const questionText = questions[currentQuestion]; // Current question text
+  
+    // Wait for the score from evaluateAnswer
     const score = await evaluateAnswer(questionText, cleanedAnswer);
-
+    
     if (score) {
       localStorage.setItem(`score${currentQuestion + 1}`, score); // Store the score
       // alert(`Your score for this question is: ${score}`);
     }
+  
     setAllAnswers([...allAnswers, answer.trim()]);
     setAnswer(""); // Clear the answer state
     setInterimAnswer(""); // Clear interim answer state
-    setCurrentQuestion((prevQuestion) => prevQuestion + 1); // Move to the next question
+    setCurrentQuestion((prevQuestion) => {
+      const newQuestion = prevQuestion + 1;
+      if (newQuestion >= questions.length) {
+        navigate('/student/score'); // Navigate to /home if it's the last question
+      }
+      return newQuestion;
+    });
+    
     setTimer(60);
     setTimerRunning(true);
   };
-
+  
   const evaluateAnswer = async (question, answer) => {
     const apiKey = "AIzaSyC-zF-VYDMtN6i7Y3MiRodQ8DDJV8zCn64"; // Replace with your actual API key
     const url = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`;
