@@ -145,6 +145,8 @@ const Questions = () => {
   };
 
   const handleNext = async () => {
+
+    setLoading(true)
     let previousAnswers = [];
     for (let i = 0; i < currentQuestion; i++) {
       const savedAnswer = localStorage.getItem(`question${i + 1}`);
@@ -180,6 +182,8 @@ const Questions = () => {
       }
       return newQuestion;
     });
+
+    setLoading(false)
     
     setTimer(60);
     setTimerRunning(true);
