@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 const sidebarData = [
   { label: "Welcome", route: "/student/welcome" },
+  { label: "Get Started", route: "/student/upload" },
   { label: "Home", route: "/student/home" },
-  // { label: "Practice mode", route: "/student/code-editor" },
+  { label: "Practice mode", route: "/student/code-editor" },
   // { label: "My courses", route: "/student/my-courses" },
   // { label: "Explore courses", route: "/student/explore-courses" },
   { label: "Question", route: "/student/screening" },

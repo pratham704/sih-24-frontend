@@ -64,42 +64,42 @@ export default function Login() {
 
 
 
-    nav('/student/welcome')
+    return nav('/student/welcome')
 
 
-    try {
-      const response = await fetch(`${baseUrl}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+    // try {
+    //   const response = await fetch(`${baseUrl}/api/auth/login`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ email, password }),
+    //   });
 
-      const data = await response.json();
-      setisloading(false);
+    //   const data = await response.json();
+    //   setisloading(false);
 
-      console.log(response.status);
-      if (data.success) {
-        localStorage.setItem("stdToken", data.content.token);
-        nav("/student/welcome");
-      }
+    //   console.log(response.status);
+    //   if (data.success) {
+    //     localStorage.setItem("stdToken", data.content.token);
+    //     nav("/student/welcome");
+    //   }
 
-      if (response.status === 400) {
+    //   if (response.status === 400) {
 
-        toast.current.show({
-          severity: "error",
-          summary: "Error",
-          detail: "Does not Exists",
-          life: 3000,
-        });
-      }
-    } catch (error) {
-      console.error("Authentication error:", error);
-      alert("Authentication failed. Please check your credentials.");
-    } finally {
-      setisloading(false); // Ensure loading state is reset even if an error occurs
-    }
+    //     toast.current.show({
+    //       severity: "error",
+    //       summary: "Error",
+    //       detail: "Does not Exists",
+    //       life: 3000,
+    //     });
+    //   }
+    // } catch (error) {
+    //   console.error("Authentication error:", error);
+    //   alert("Authentication failed. Please check your credentials.");
+    // } finally {
+    //   setisloading(false); // Ensure loading state is reset even if an error occurs
+    // }
   };
 
   const formVariant = {
