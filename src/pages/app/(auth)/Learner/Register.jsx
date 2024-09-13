@@ -59,38 +59,43 @@ export default function Register() {
     }
 
     setisloading(true);
+    await new Promise(resolve => setTimeout(resolve, 3000));
 
-    try {
-      const response = await fetch(`${baseUrl}/api/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, password }),
-      });
 
-      if (!response.ok) {
-        throw new Error("Registration failed");
-      }
 
-      const data = await response.json();
+    return nav('/student/welcome')
 
-      if (data.success) {
-        nav("/student/dashboard");
-      } else {
-        throw new Error("Registration failed");
-      }
-    } catch (error) {
-      console.error("Registration error:", error);
-      toast.current.show({
-        severity: "error",
-        summary: "Error",
-        detail: "Registration failed. Please try again.",
-        life: 3000,
-      });
-    } finally {
-      setisloading(false);
-    }
+    // try {
+    //   const response = await fetch(`${baseUrl}/api/auth/register`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ name, email, password }),
+    //   });
+
+    //   if (!response.ok) {
+    //     throw new Error("Registration failed");
+    //   }
+
+    //   const data = await response.json();
+
+    //   if (data.success) {
+    //     nav("/student/dashboard");
+    //   } else {
+    //     throw new Error("Registration failed");
+    //   }
+    // } catch (error) {
+    //   console.error("Registration error:", error);
+    //   toast.current.show({
+    //     severity: "error",
+    //     summary: "Error",
+    //     detail: "Registration failed. Please try again.",
+    //     life: 3000,
+    //   });
+    // } finally {
+    //   setisloading(false);
+    // }
   };
 
   const formVariant = {
