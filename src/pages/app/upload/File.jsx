@@ -81,20 +81,7 @@ export default function File({ onFilesUploaded }) {
           >
             <FontAwesomeIcon icon={faFilePdf} />
           </label>
-          <button
-            onClick={onUploadFiles}
-            style={{
-              border: "1px solid #10B981",
-              borderRadius: "8px",
-              padding: "8px",
-              backgroundColor: "#10B981",
-              color: "white",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <FontAwesomeIcon icon={faCloudUploadAlt} />
-          </button>
+
           <button
             onClick={onClearFiles}
             style={{
@@ -110,7 +97,7 @@ export default function File({ onFilesUploaded }) {
             <FontAwesomeIcon icon={faTimes} />
           </button>
         </div>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center" , marginLeft:'1.5rem' }}>
           <span
             style={{ color: "white", fontSize: "0.875rem", marginRight: "8px" }}
           >

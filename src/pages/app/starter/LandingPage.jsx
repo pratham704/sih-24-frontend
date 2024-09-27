@@ -1,11 +1,22 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef  , useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "primereact/toast";
 
 export default function LandingPage() {
+  const [isloggedIn, setisloggedIn] = useState(false)
   const navigate = useNavigate();
   const toast = useRef(null);
 
+  useEffect(() => {
+    const userEmail = localStorage.getItem('userEmail');
+    
+    if (userEmail ) {
+      // console.log('User Email:', userEmail);
+      setisloggedIn(true)
+    }
+  }, []); 
+
+  
   useEffect(() => {
     const stdToken = localStorage.getItem("stdToken");
     const instructToken = localStorage.getItem("instructToken");
@@ -108,7 +119,8 @@ export default function LandingPage() {
             }
             onMouseLeave={(e) => (e.target.style.transform = "translateY(0)")}
           >
-            Get Started
+
+          {isloggedIn?<>Welcome Back </>:<>Get Started</>}
           </button>
         </div>
       </div>

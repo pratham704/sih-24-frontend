@@ -1,19 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const sidebarData = [
-  { label: "Welcome", route: "/student/welcome" },
-  { label: "Get Started", route: "/student/upload" },
-  { label: "Home", route: "/student/home" },
-  { label: "Practice mode", route: "/student/code-editor" },
-  // { label: "My courses", route: "/student/my-courses" },
-  // { label: "Explore courses", route: "/student/explore-courses" },
-  { label: "Question", route: "/student/screening" },
-  { label: "Forum", route: "/forum" },
-  
-];
-
 export default function Sidebar() {
+  const sidebarData = [
+    { label: "Welcome", route: "/student/welcome" },
+    {
+      label:
+        localStorage.getItem("Name") === "Not Scraped" ||
+        localStorage.getItem("Email") === "Not Scraped" ||
+        localStorage.getItem("Education") === "Not Scraped"
+          ? "Reupload Resume"
+          : localStorage.getItem("Email") &&
+            localStorage.getItem("Education") &&
+            localStorage.getItem("Technologies")
+          ? "Edit Details"
+          : "Get Started",
+      route: "/student/upload",
+    },
+    { label: "Activity", route: "/student/home" },
+    ...(localStorage.getItem("Email") &&
+    localStorage.getItem("Education") &&
+    localStorage.getItem("Technologies")
+      ? [{ label: "Start Screening", route: "/student/screening" }]
+      : []), // Other sidebar items...
+
+    { label: "Practice", route: "/student/code-editor" },
+    { label: "Guidelines / Rules", route: "/student/rules" },
+  ];
+
   const nav = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isScrollTopVisible, setIsScrollTopVisible] = useState(false);
@@ -92,17 +106,50 @@ export default function Sidebar() {
             }}
           >
             {sidebarData.map(({ label, route }, index) => (
-              <li key={index} style={{ marginBottom: "20px", cursor: "pointer" }}>
+              <li
+                key={index}
+                style={{ marginBottom: "20px", cursor: "pointer" }}
+              >
                 <div
-                  style={divStyles}
-                  onClick={() => {nav(route)
-                    toggleSidebar()
+                  style={{
+                    ...divStyles,
+                    ...(label === "Start Screening"
+                      ? {
+                          border: "2px solid #EAB8FF",
+                          borderRadius: "8px",
+                          transition: "transform 0.2s",
+                          padding: "10px",
+                        }
+                      : {}),
+                  }}
+                  onClick={() => {
+                    nav(route);
+                    toggleSidebar();
+                  }}
+                  onMouseEnter={(e) => {
+                    if (label === "Start Screening") {
+                      e.currentTarget.style.transform = "scale(1.05)"; // Scale effect on hover
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (label === "Start Screening") {
+                      e.currentTarget.style.transform = "scale(1)"; // Reset scale effect
+                    }
                   }}
                 >
-                  <h3 style={{ color: "#fff" }}>{label}</h3>
+                  <h3
+                    style={{
+                      color: label === "Start Screening" ? "#fff" : "#fff",
+                      fontWeight:
+                        label === "Start Screening" ? "bold" : "normal",
+                    }}
+                  >
+                    {label}
+                  </h3>
                 </div>
               </li>
             ))}
+
             <div
               style={{
                 backgroundColor: "rgb(232 51 86 / 68%)",
@@ -119,7 +166,8 @@ export default function Sidebar() {
               }}
               onClick={() => {
                 localStorage.removeItem("stdToken");
-                nav('/');
+                localStorage.removeItem("userEmail");
+                nav("/");
               }}
             >
               <h3 style={{ color: "#fff" }}>Logout</h3>
@@ -172,7 +220,7 @@ export default function Sidebar() {
               fontFamily: "Arial, sans-serif",
             }}
           >
-            श्रेष्ठ 
+            श्रेष्ठ
           </h1>
         </div>
         <div style={{ flex: "1", textAlign: "right" }}>
@@ -192,7 +240,8 @@ export default function Sidebar() {
             }}
             onClick={() => {
               localStorage.removeItem("stdToken");
-              nav('/');
+              // localStorage.removeItem("userEmail");
+              nav("/");
             }}
           >
             Logout

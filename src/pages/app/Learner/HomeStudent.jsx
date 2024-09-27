@@ -30,7 +30,7 @@ const XPPointsSkeleton = () => {
   return (
     <div className="bg-gray-700 p-4 rounded-lg shadow animate-pulse">
       <h3 className="text-lg font-semibold text-white">XP Points</h3>
-      <p className="text-purple-300 text-2xl">2400 XP</p>
+      <p className="text-purple-300 text-2xl">00 XP</p>
     </div>
   );
 };
@@ -38,8 +38,8 @@ const XPPointsSkeleton = () => {
 const AchievementsSkeleton = () => {
   return (
     <div className="bg-gray-700 p-4 rounded-lg shadow animate-pulse">
-      <h3 className="text-lg font-semibold text-white">Achievements</h3>
-      <p className="text-gray-300">24 Badges</p>
+      <h3 className="text-lg font-semibold text-white"><br /> </h3>
+      <p className="text-gray-300">0 Badges</p>
     </div>
   );
 };
@@ -47,7 +47,7 @@ const AchievementsSkeleton = () => {
 const LearningActivityChartSkeleton = () => {
   return (
     <div className="bg-gray-700 p-4 rounded-lg shadow animate-pulse">
-      <h3 className="text-lg font-semibold text-white mb-4">Learning Activity</h3>
+      <h3 className="text-lg font-semibold text-white mb-4">Under Process</h3>
       <div className="h-64 bg-gray-500 rounded"></div>
     </div>
   );
@@ -56,8 +56,8 @@ const LearningActivityChartSkeleton = () => {
 const YourClassSkeleton = () => {
   return (
     <div className="bg-gray-700 p-4 rounded-lg shadow animate-pulse">
-      <h3 className="text-lg font-semibold text-white">Microprocessor Theory</h3>
-      <p className="text-gray-300">Today at 10:00 AM</p>
+      <h3 className="text-lg font-semibold text-white">In Process...</h3>
+      <p className="text-gray-300">Today at {new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
       <button className="mt-2 px-4 py-2 bg-green-500 text-white rounded opacity-0">
         Join Class
       </button>
@@ -120,7 +120,7 @@ const HomeStudent = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold">
-            Hello, Arka{" "}
+            Hello{" "}
             <span role="img" aria-label="wave">
               👋
             </span>
@@ -134,7 +134,7 @@ const HomeStudent = () => {
 
         {/* Today's Course */}
         <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-4">Today's course</h2>
+          <h2 className="text-xl font-semibold mb-4">Your Activity</h2>
           <div className="grid grid-cols-2 gap-4">
             {courses.length > 0 ? (
               courses.slice(0, 2).map((course) => (
@@ -178,7 +178,7 @@ const HomeStudent = () => {
             <br />
             {achievements ? (
               <div className="bg-gray-800 p-4 rounded-lg shadow">
-                <h3 className="text-lg font-semibold">Achievements</h3>
+                <h3 className="text-lg font-semibold"></h3>
                 <p className="text-gray-300">{achievements} Badges</p>
               </div>
             ) : (
@@ -189,7 +189,7 @@ const HomeStudent = () => {
           <div className="col-span-2">
             {data ? (
               <div className="bg-gray-800 p-4 rounded-lg shadow">
-                <h3 className="text-lg font-semibold mb-4">Learning Activity</h3>
+                <h3 className="text-lg font-semibold mb-4">Under Process</h3>
                 <ResponsiveContainer width="100%" height={200}>
                   <LineChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#444" />
@@ -213,7 +213,7 @@ const HomeStudent = () => {
         </div>
 
         <div>
-          <h2 className="text-xl font-semibold mb-4">Your Class</h2>
+          <h2 className="text-xl font-semibold mb-4">Your Scores</h2>
           {courses.length > 0 ? (
             <div className="bg-gray-800 p-4 rounded-lg shadow">
               <h3 className="text-lg font-semibold">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 import File from "./File";
@@ -7,6 +7,9 @@ import ResumeDetails from "./ResumeDetails"; // Import the new ResumeDetails com
 import { resumeGemini } from "../../../api/Gemini";
 import { Pdfscrapper } from "../../../api/Scraper";
 const Upload = () => {
+
+
+  
   const [formData, setFormData] = useState({
     collegeName: "",
     name: "",
@@ -86,6 +89,39 @@ const Upload = () => {
       setLoading(false);
     }
   };
+  const [showResumeDetails, setShowResumeDetails] = useState(false);
+
+
+
+  useEffect(() => {
+    // Check if all required fields are in local storage
+    const requiredFields = [
+      "Name",
+      "Address",
+      "Email",
+      "Phone",
+      "Education",
+      "Technologies",
+    ];
+    
+    const allFieldsExist = requiredFields.every((field) =>
+      localStorage.getItem(field)
+    );
+
+    // If all fields exist, set the state to show the ResumeDetails component
+    if (allFieldsExist) {
+      const details = {
+        Name: localStorage.getItem("Name"),
+        Address: localStorage.getItem("Address"),
+        Email: localStorage.getItem("Email"),
+        Phone: localStorage.getItem("Phone"),
+        Education: localStorage.getItem("Education"),
+        Technologies: localStorage.getItem("Technologies"),
+      };
+      setResumeData(details);
+    }
+  }, []);
+
 
   return (
     <div className="bg-gray-900 min-h-screen flex items-center justify-center">

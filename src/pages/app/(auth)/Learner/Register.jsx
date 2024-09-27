@@ -1,11 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef  , useEffect} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
-import { faGoogle, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+// import { faGoogle, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
+// import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
-import { baseUrl } from "../../../../api/BaseUrl";
+// import { baseUrl } from "../../../../api/BaseUrl";
 import { Toast } from "primereact/toast";
 import SkeletonLogin from "../../../../components/Skleton/SkeletonLogin";
 import { RegisterValidator } from "../../../../utils/Validators/auth.validatoions";
@@ -21,6 +21,17 @@ export default function Register() {
   const [captchaVerified, setCaptchaVerified] = useState(false);
   const [isloading, setisloading] = useState(false);
 
+
+
+  useEffect(() => {
+    const userEmail = localStorage.getItem('userEmail');
+    
+    if (userEmail ) {
+      // console.log('User Email:', userEmail);
+      return nav("/student/welcome");
+
+    }
+  }, []); 
   const onCaptchaChange = (value) => {
     setCaptchaVerified(!!value);
   };
@@ -62,6 +73,7 @@ export default function Register() {
     await new Promise(resolve => setTimeout(resolve, 3000));
 
 
+    localStorage.setItem("userEmail", email);
 
     return nav('/student/welcome')
 

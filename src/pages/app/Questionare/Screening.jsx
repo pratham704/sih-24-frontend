@@ -7,6 +7,8 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Modal from "./Mobile";
+import Rules from "../../../components/Student/Rules";
 
 const stepVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -15,9 +17,12 @@ const stepVariants = {
 };
 
 const Screening = () => {
-
-
-
+  const nav = useNavigate();
+  const [step, setStep] = useState(0);
+  const [showFinalScreen, setShowFinalScreen] = useState(false);
+  const [microphoneStatus, setMicrophoneStatus] = useState(null);
+  const [cameraStatus, setCameraStatus] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     const education = localStorage.getItem("Education");
     const technologies = localStorage.getItem("Technologies");
@@ -26,11 +31,6 @@ const Screening = () => {
       nav("/student/upload");
     }
   }, []);
-  const nav = useNavigate();
-  const [step, setStep] = useState(0);
-  const [showFinalScreen, setShowFinalScreen] = useState(false);
-  const [microphoneStatus, setMicrophoneStatus] = useState(null);
-  const [cameraStatus, setCameraStatus] = useState(null);
 
   const steps = [
     { title: "Microphone" },
@@ -76,11 +76,14 @@ const Screening = () => {
   const enterFullScreen = () => {
     if (document.documentElement.requestFullscreen) {
       document.documentElement.requestFullscreen();
-    } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+    } else if (document.documentElement.mozRequestFullScreen) {
+      // Firefox
       document.documentElement.mozRequestFullScreen();
-    } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      // Chrome, Safari, and Opera
       document.documentElement.webkitRequestFullscreen();
-    } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+    } else if (document.documentElement.msRequestFullscreen) {
+      // IE/Edge
       document.documentElement.msRequestFullscreen();
     }
   };
@@ -92,6 +95,16 @@ const Screening = () => {
         {/* Placeholder for loading effect */}
       </div>
     );
+  };
+
+  const startTest = () => {
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent); // Check if mobile
+    if (isMobile) {
+      setShowModal(true); // Show modal if on mobile
+    } else {
+      handleFinalScreen();
+      enterFullScreen();
+    }
   };
 
   return (
@@ -186,11 +199,7 @@ const Screening = () => {
                 <li>Avoid moving away from the screen during the test.</li>
               </ul>
               <button
-                onClick={()=>{
-
-                  handleFinalScreen()
-                  enterFullScreen()
-                }}
+                onClick={startTest} // Use startTest instead of handleFinalScreen
                 className="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
               >
                 Start Test
@@ -198,6 +207,15 @@ const Screening = () => {
             </div>
           )}
         </motion.div>
+      )}
+
+      {showModal && (
+        <Modal
+          message="You need a laptop / Pc  to start the test."
+          onClose={() => {
+            nav("/student/rules");
+          }}
+        />
       )}
 
       {showFinalScreen && (

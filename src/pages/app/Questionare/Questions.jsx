@@ -56,6 +56,13 @@ const Questions = () => {
     }
   };
 
+
+
+
+
+
+  
+
   useEffect(() => {
     if (isListening) {
       const recognition = new (window.SpeechRecognition ||

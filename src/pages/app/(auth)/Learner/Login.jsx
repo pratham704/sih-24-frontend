@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef  , useEffect} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
@@ -20,6 +20,16 @@ export default function Login() {
   const [rememberMe, setRememberMe] = useState(false);
   const [showSignIn, setShowSignIn] = useState(true); // State to toggle between Sign In and Get Started
   const [isloading, setisloading] = useState(false);
+
+  useEffect(() => {
+    const userEmail = localStorage.getItem('userEmail');
+    
+    if (userEmail ) {
+      // console.log('User Email:', userEmail);
+      return nav("/student/welcome");
+
+    }
+  }, []); 
 
   const onCaptchaChange = (value) => {
     setCaptchaVerified(!!value);
@@ -51,8 +61,6 @@ export default function Login() {
     return true;
   };
 
-
-
   const HandleSignin = async () => {
     const isValid = await Validate();
 
@@ -60,12 +68,11 @@ export default function Login() {
       return;
     }
     setisloading(true);
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 3000));
 
+    localStorage.setItem("userEmail", email);
 
-
-    return nav('/student/welcome')
-
+    return nav("/student/welcome");
 
     // try {
     //   const response = await fetch(`${baseUrl}/api/auth/login`, {
@@ -114,7 +121,7 @@ export default function Login() {
 
   return (
     <>
-              <Toast ref={toast} />
+      <Toast ref={toast} />
 
       {isloading ? (
         <>

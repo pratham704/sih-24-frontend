@@ -79,7 +79,7 @@ export default function JobOpportunities() {
                   <span className="text-sm text-gray-400">{job.duration}</span>
                 </div>
                 <Link
-                  to="#"
+                  to="/student/upload"
                   className="inline-flex h-8 items-center justify-center rounded-md bg-blue-500 px-4 text-sm font-medium text-white shadow transition-colors hover:bg-blue-400"
                 >
                   Apply Now

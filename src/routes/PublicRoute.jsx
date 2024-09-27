@@ -35,6 +35,7 @@ import Questions from "../pages/app/Questionare/Questions";
 import Screening from "../pages/app/Questionare/Screening";
 import ScoreSummary from "../pages/app/Questionare/ScoreSummary";
 import Recruiter from "../pages/app/recruiter/Recruiter";
+import Rules from "../components/Student/Rules";
 const PublicRoute = () => {
   return (
     <PrimeReactProvider>
@@ -117,7 +118,7 @@ const PublicRoute = () => {
               </>
             }
           />
-          {/* <Route
+          <Route
             exact
             path="/student/code-editor"
             element={
@@ -126,7 +127,18 @@ const PublicRoute = () => {
                 <CodeEditor />
               </>
             }
-          /> */}
+          />
+
+<Route
+            exact
+            path="/student/rules"
+            element={
+              <>
+                <Sidebar />
+                <Rules />
+              </>
+            }
+          />
           {/* <Route
             exact
             path="/student/certificate"

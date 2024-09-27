@@ -1,15 +1,14 @@
 import React, { useState, useRef } from "react";
 import { Editor } from "@monaco-editor/react";
-import { Dropdown } from "primereact/dropdown";
 import {
   data,
   CODE_SNIPPETS,
   LANGUAGE_VERSIONS,
-  questions,
-} from "../../../utils/data/codeEditor.data";
+} from "../../../utils/data/codeEditor.js";
+import { tors } from "../../../api/Tors.js";
+
 
 function CodeEditor() {
-  const [loading, setLoading] = useState(null);
   const [analyzeDisplay, setAnalyzeDisplay] = useState(false);
   const [pythonCode, setPythonCode] = useState(CODE_SNIPPETS["python"]);
   const [output, setOutput] = useState("");
@@ -20,7 +19,6 @@ function CodeEditor() {
   const [isLoading, setIsLoading] = useState(false);
   const bottomRef = useRef(null);
   const [analyzeAnswer, setAnalyzeAnswer] = useState(null);
-  const [selectedQuestion, setSelectedQuestion] = useState(null);
 
   const handleSelection = (lang, versio) => {
     setLanguage(lang);
@@ -57,9 +55,7 @@ function CodeEditor() {
       setOutput(data.run.output);
       setIsLoading(false);
     } catch (error) {
-      setError(
-        "An error occurred while compiling and running the Python code."
-      );
+      setError("An error occurred while compiling and running the Python code.");
       setIsLoading(false);
       console.error("Error:", error);
     }
@@ -68,41 +64,20 @@ function CodeEditor() {
   const submitAndAnalyze = async () => {
     setAnalyzeDisplay(true);
     setAnalyzeAnswer(null);
-    if (selectedQuestion) {
-      const questionAndCodeContent =
-        "Question: " +
-        selectedQuestion.name +
-        " Students answer: " +
-        pythonCode;
+    const response = await fetch(`${tors}/api/submit`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        code: pythonCode,
+      }),
+    });
 
-      const questionAnalysisResponse = await fetch(
-        "http://localhost:1234/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            model: "TheBloke/Llama-2-7B-Chat-GGUF",
-            messages: [
-              {
-                role: "system",
-                content:
-                  "First, analyze the question carefully, and then check the student's code if it matches the required result of the question. If the student's approach is incorrect, then say incorrect, and tell the correct approach. Answer in a maximum of 50 words.",
-              },
-              { role: "user", content: questionAndCodeContent },
-            ],
-            temperature: 0.7,
-          }),
-        }
-      );
+    const data = await response.json();
+    setAnalyzeAnswer(data.result.chatStreamEndEvent.response.text);
 
-      const questionAnalysisData = await questionAnalysisResponse.json();
-      setAnalyzeAnswer(questionAnalysisData.choices[0].message.content);
-      return;
-    }
-
-    alert("Choose a question to submit and analyze");
+    console.log(data.result.chatStreamEndEvent.response.text)
   };
 
   return (
@@ -132,42 +107,31 @@ function CodeEditor() {
             </div>
           </div>
         </div>
-
-        <div className="flex justify-center w-full lg:w-1/2">
-          <Dropdown
-            value={selectedQuestion}
-            onChange={(e) => setSelectedQuestion(e.value)}
-            options={questions}
-            optionLabel="name"
-            placeholder="Select a Question"
-            className="w-full border border-gray-700 rounded-lg bg-gray-800"
-          />
-        </div>
       </div>
 
       <div className="flex flex-col lg:flex-row flex-wrap">
         <div className="w-full lg:w-1/2 p-2">
           <div className="editor-container">
-          <Editor
-      options={{
-        minimap: { enabled: false },
-        scrollbar: {
-          verticalScrollbarSize: 2,
-          horizontalScrollbarSize: 2,
-          verticalSliderSize: 1,
-          horizontalSliderSize: 2,
-          alwaysConsumeMouseWheel: false,
-        },
-        lineNumbers: 'off', // Disable line numbers
-      }}
-      height="75vh"
-      theme="vs-dark"
-      language={language}
-      defaultValue={snippit}
-      value={pythonCode}
-      onChange={setPythonCode}
-      style={{ borderRadius: "1rem" }}
-    />
+            <Editor
+              options={{
+                minimap: { enabled: false },
+                scrollbar: {
+                  verticalScrollbarSize: 2,
+                  horizontalScrollbarSize: 2,
+                  verticalSliderSize: 1,
+                  horizontalSliderSize: 2,
+                  alwaysConsumeMouseWheel: false,
+                },
+                lineNumbers: 'off', // Disable line numbers
+              }}
+              height="75vh"
+              theme="vs-dark"
+              language={language}
+              defaultValue={snippit}
+              value={pythonCode}
+              onChange={setPythonCode}
+              style={{ borderRadius: "1rem" }}
+            />
           </div>
           <div className="flex justify-center mt-4">
             {isLoading ? (
@@ -205,7 +169,7 @@ function CodeEditor() {
                 }}
                 className="py-2 px-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded text-white font-bold shadow-lg"
               >
-                Submit and Analyze
+                Analyze Time complexity
               </button>
             )}
           </div>
